@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Price Track | Enterprise Pricing</title>
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/product.css">
+</head>
+<body>
+  <section id="login-screen" class="login-screen">
+    <div class="login-brand"><div class="brand-mark">P</div><h1>Price Track</h1><p>Commercial pricing, estimates and approvals in one workspace.</p><div class="login-steps"><span>01 · Estimate</span><span>02 · Review</span><span>03 · Agree</span></div></div>
+    <form id="login-form" class="login-card">
+      <span class="eyebrow">WELCOME TO PRICE TRACK</span><h2>Sign in to your workspace</h2>
+      <p>Client Partners use their opportunity owner name from the Salesforce synthetic data.</p>
+      <div class="field"><label for="login-id">Login ID</label><input id="login-id" autocomplete="username" required placeholder="Opportunity owner name"></div>
+      <div class="field"><label for="login-password">Password</label><input id="login-password" type="password" autocomplete="current-password" required></div>
+      <p id="login-error" class="login-error" role="alert"></p><button id="login-submit" class="btn primary" type="submit">Sign in</button>
+      <p class="section-note">Temporary local login. Initial passwords are generated in the local access file. Enterprise SSO is planned.</p>
+    </form>
+  </section>
+  <div class="app-shell" hidden>
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">P</div>
+        <div><strong>Price Track</strong><small>PRICING GOVERNANCE</small></div>
+      </div>
+      <div class="environment"><span class="pulse"></span> DEMO ENVIRONMENT</div>
+      <nav id="nav">
+        <button class="nav-item active" data-page="dashboard" title="Dashboard"><span aria-hidden="true">D</span> Dashboard</button>
+        <button class="nav-item" data-page="cases" title="Pricing Cases"><span aria-hidden="true">C</span> Pricing Cases</button>
+        <button class="nav-item" data-page="renewals" title="Renewals"><span aria-hidden="true">R</span> Renewals</button>
+        <button class="nav-item" data-page="workspace" title="Resource Estimates &amp; Pricing Calculator"><span aria-hidden="true">E</span> Resource Estimates &amp; Pricing Calculator</button>
+        <button class="nav-item" data-page="versions" title="Negotiations &amp; Pricing Versions"><span aria-hidden="true">V</span> Negotiations &amp; Pricing Versions</button>
+        <button class="nav-item" data-page="calculator" title="Pricing Calculator"><span aria-hidden="true">$</span> Pricing Calculator</button>
+        <button class="nav-item" data-page="approvals" title="Approvals"><span aria-hidden="true">A</span> Approvals <i id="task-count">0</i></button>
+        <button class="nav-item" data-page="workflow" title="Workflow Tracker"><span aria-hidden="true">W</span> Workflow Tracker</button>
+        <button class="nav-item" data-page="administration" title="Administration"><span aria-hidden="true">G</span> Administration</button>
+        <button class="nav-item" data-page="notifications" title="Notifications"><span aria-hidden="true">N</span> Notifications <i id="notification-count"></i></button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="avatar">PT</div>
+        <div><strong>Price Track POC</strong><small>Local demonstration</small></div>
+        <span class="status-dot"></span>
+      </div>
+    </aside>
+    <main class="main">
+      <header class="topbar">
+        <div><div class="eyebrow" id="crumb">OVERVIEW</div><h1 id="page-title">Dashboard</h1></div>
+        <div class="top-actions">
+          <button class="btn secondary" id="salesforce-opportunities-entry" data-action="open-salesforce-opportunities" hidden>Salesforce Opportunities</button>
+          <div class="identity-picker"><span id="signed-in-role"></span><strong id="signed-in-name"></strong></div>
+          <button class="btn secondary small" data-action="change-password">Password</button>
+          <button class="btn secondary small" id="logout">Sign out</button>
+          <button class="icon-button" id="refresh" title="Refresh data">↻</button>
+          <div class="avatar user-avatar" id="user-avatar">DA</div>
+        </div>
+      </header>
+      <section class="notice-bar">
+        <span>ⓘ</span>
+        <div><strong>Demo / unapproved rules</strong><p>Pricing formulas and policy thresholds are not Finance-approved. Integrations use synthetic data and mock adapters.</p></div>
+        <button id="dismiss-notice" aria-label="Dismiss notice">×</button>
+      </section>
+      <div id="content" class="content"><div class="loading">Loading Price Track…</div></div>
+      <footer>Price Track POC <span>•</span> Synthetic data <span>•</span> No live enterprise systems connected</footer>
+    </main>
+  </div>
+  <div id="toast" class="toast" role="status"></div>
+  <dialog id="modal">
+    <form method="dialog" id="modal-form">
+      <div class="modal-head"><h2 id="modal-title">Action</h2><button class="icon-button" value="cancel" formnovalidate>×</button></div>
+      <div id="modal-body"></div>
+      <div class="modal-actions">
+        <button class="btn secondary" value="cancel" formnovalidate>Cancel</button>
+        <button class="btn primary" id="modal-submit" value="default">Confirm</button>
+      </div>
+    </form>
+  </dialog>
+  <script src="/product.js"></script>
+  <script src="/app.js"></script>
+</body>
+</html>

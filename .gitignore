@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.env
+data/local-access/
+data/*.sqlite
+data/*.sqlite.tmp
+data/store.json
+tests/.*-/

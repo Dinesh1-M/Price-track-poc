@@ -1,0 +1,26 @@
+{
+  "name": "price-track-enterprise-poc",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Price Track enterprise pricing lifecycle proof of concept",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "test": "node --test",
+    "check": "node --check src/server.js && node --check src/domain.js && node --check src/store.js && node --check public/app.js && node --check src/lifecycle.js && node --check src/poc-api.js && node --check src/sqlite-store.js && node --check src/policy.js && node --check src/work-types.js && node --check src/salesforce-opportunities.js",
+    "build": "node scripts/build.js",
+    "smoke": "node scripts/smoke.js",
+    "intake": "node scripts/intake.js",
+    "intake:template": "node scripts/intake-template.js",
+    "salesforce:sync": "node scripts/intake.js --sync",
+    "finance:extract": "node scripts/extract-workbook.js"
+  },
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "dependencies": {
+    "read-excel-file": "^9.3.12",
+    "sql.js": "^1.14.2"
+  }
+}

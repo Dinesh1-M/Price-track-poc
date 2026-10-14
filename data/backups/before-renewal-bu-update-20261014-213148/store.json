@@ -1,0 +1,2346 @@
+{
+  "users": [
+    {
+      "id": "u-admin",
+      "name": "Demo Administrator",
+      "role": "Admin",
+      "account": "",
+      "bu": "",
+      "costVisible": true,
+      "buWideAccess": true
+    },
+    {
+      "id": "u-cp",
+      "name": "Demo Client Partner",
+      "role": "Client Partner",
+      "account": "Northstar Retail",
+      "bu": "R&M",
+      "costVisible": false
+    },
+    {
+      "id": "u-fin",
+      "name": "Demo Finance Reviewer",
+      "role": "Finance",
+      "account": "",
+      "bu": "",
+      "costVisible": true
+    },
+    {
+      "id": "u-bu",
+      "name": "Demo BU Head",
+      "role": "BU Head",
+      "account": "",
+      "bu": "R&M",
+      "costVisible": false,
+      "buWideAccess": false
+    },
+    {
+      "id": "u-spoc",
+      "name": "Demo BU SPOC",
+      "role": "BU SPOC",
+      "account": "",
+      "bu": "R&M",
+      "costVisible": true
+    },
+    {
+      "id": "u-cfo",
+      "name": "Demo CFO",
+      "role": "CFO",
+      "account": "",
+      "bu": "",
+      "costVisible": true
+    },
+    {
+      "id": "u-evp",
+      "name": "Demo EVP Finance",
+      "role": "EVP Finance",
+      "account": "",
+      "bu": "",
+      "costVisible": true
+    }
+  ],
+  "rates": [
+    {
+      "id": "RATE-001",
+      "scope": "Client",
+      "account": "Northstar Retail",
+      "bu": "R&M",
+      "workType": "T&M",
+      "role": "Data Engineer",
+      "grade": "G3",
+      "location": "India",
+      "currency": "USD",
+      "amount": 42,
+      "startDate": "2026-01-01",
+      "endDate": "2027-12-31",
+      "status": "Approved",
+      "proposedBy": "system",
+      "approvedBy": "finance.demo"
+    },
+    {
+      "id": "RATE-002",
+      "scope": "Standard",
+      "account": "",
+      "bu": "TMT1",
+      "workType": "FTE",
+      "role": "Software Engineer",
+      "grade": "G2",
+      "location": "India",
+      "currency": "USD",
+      "amount": 35,
+      "startDate": "2026-01-01",
+      "endDate": "2027-12-31",
+      "status": "Approved",
+      "proposedBy": "system",
+      "approvedBy": "finance.demo"
+    },
+    {
+      "id": "RATE-003",
+      "scope": "Standard",
+      "account": "",
+      "bu": "TMT1",
+      "workType": "Program",
+      "role": "Solution Architect",
+      "grade": "G5",
+      "location": "United States",
+      "currency": "USD",
+      "amount": 125,
+      "startDate": "2026-01-01",
+      "endDate": "2027-12-31",
+      "status": "Approved",
+      "proposedBy": "system",
+      "approvedBy": "finance.demo"
+    },
+    {
+      "id": "RATE-004",
+      "scope": "Standard",
+      "account": "",
+      "bu": "CPG",
+      "workType": "Product",
+      "role": "Product Analyst",
+      "grade": "G3",
+      "location": "India",
+      "currency": "USD",
+      "amount": 38,
+      "startDate": "2026-01-01",
+      "endDate": "2027-12-31",
+      "status": "Approved",
+      "proposedBy": "system",
+      "approvedBy": "finance.demo"
+    },
+    {
+      "id": "RATE-005",
+      "scope": "Client",
+      "account": "Northstar Retail",
+      "bu": "R&M",
+      "workType": "FTE",
+      "role": "Software Engineer",
+      "grade": "G2",
+      "location": "India",
+      "currency": "USD",
+      "amount": 31,
+      "startDate": "2025-01-01",
+      "endDate": "2026-01-31",
+      "status": "Expired",
+      "proposedBy": "system",
+      "approvedBy": "finance.demo"
+    },
+    {
+      "id": "RATE-DEMO-RM",
+      "scope": "Client",
+      "account": "Northstar Retail",
+      "bu": "R&M",
+      "workType": "FTE",
+      "role": "Software Engineer",
+      "grade": "G2",
+      "location": "India",
+      "currency": "USD",
+      "amount": 35,
+      "startDate": "2026-01-01",
+      "endDate": "2027-12-31",
+      "status": "Approved",
+      "proposedBy": "sample-provider",
+      "approvedBy": "finance.demo"
+    }
+  ],
+  "cases": [
+    {
+      "id": "PT-28EB80B9",
+      "opportunityId": "SF-ML-DEMO-002",
+      "opportunityName": "Northstar ML Engineering Project",
+      "account": "Northstar Retail",
+      "bu": "R&M",
+      "status": "In Progress",
+      "lifecycle": "Open",
+      "owner": "Demo Client Partner",
+      "assignedUsers": [
+        "u-cp",
+        "u-admin",
+        "u-bu",
+        "u-spoc"
+      ],
+      "financeVisible": true,
+      "costVisible": false,
+      "budget": 50000,
+      "targetMarginPct": 40,
+      "currency": "USD",
+      "workTypes": [
+        "T&M"
+      ],
+      "lines": [
+        {
+          "quantity": 1,
+          "availability": "Available - sample",
+          "id": "NEW-1791867834622",
+          "bu": "R&M",
+          "workType": "T&M",
+          "role": "ML Engineer",
+          "grade": "G3",
+          "location": "India",
+          "classification": "Offshore",
+          "hoursPerPeriod": 160,
+          "utilizationPct": 100,
+          "periods": 1,
+          "startDate": "2026-10-13",
+          "endDate": "2027-04-11",
+          "costPerHour": 45,
+          "currency": "USD",
+          "account": "Northstar Retail"
+        }
+      ],
+      "revision": 3,
+      "draftSavedAt": "2026-10-13T05:09:54.322Z",
+      "versions": [],
+      "comments": [
+        {
+          "id": "C-18F641A0",
+          "author": "Demo BU SPOC",
+          "text": "The BU SPOC has entered the missing skill and its HR-provided cost.",
+          "createdAt": "2026-10-13T05:07:09.799Z"
+        }
+      ],
+      "exceptions": [],
+      "handoffs": [],
+      "audit": [
+        {
+          "id": "AUD-4270320F",
+          "actor": "Demo BU SPOC",
+          "actorId": "u-spoc",
+          "action": "DRAFT_SECTION_SAVED",
+          "entityType": "PricingCase",
+          "entityId": "PT-28EB80B9",
+          "details": {
+            "section": "resource-estimates",
+            "revision": 3
+          },
+          "createdAt": "2026-10-13T05:09:54.322Z"
+        },
+        {
+          "id": "AUD-16A87647",
+          "actor": "Demo BU SPOC",
+          "actorId": "u-spoc",
+          "action": "DRAFT_SECTION_SAVED",
+          "entityType": "PricingCase",
+          "entityId": "PT-28EB80B9",
+          "details": {
+            "section": "resource-estimates",
+            "revision": 3
+          },
+          "createdAt": "2026-10-13T05:08:40.284Z"
+        },
+        {
+          "id": "AUD-97104300",
+          "actor": "Demo BU SPOC",
+          "actorId": "u-spoc",
+          "action": "DRAFT_SECTION_SAVED",
+          "entityType": "PricingCase",
+          "entityId": "PT-28EB80B9",
+          "details": {
+            "section": "resource-estimates",
+            "revision": 2
+          },
+          "createdAt": "2026-10-13T05:07:35.076Z"
+        },
+        {
+          "id": "AUD-94F76D5D",
+          "actor": "Demo BU SPOC",
+          "actorId": "u-spoc",
+          "action": "DRAFT_SECTION_SAVED",
+          "entityType": "PricingCase",
+          "entityId": "PT-28EB80B9",
+          "details": {
+            "section": "resource-estimates",
+            "revision": 2
+          },
+          "createdAt": "2026-10-13T05:07:25.226Z"
+        },
+        {
+          "id": "AUD-CD467B23",
+          "actor": "Demo BU SPOC",
+          "actorId": "u-spoc",
+          "action": "COMMENT_ADDED",
+          "entityType": "PricingCase",
+          "entityId": "PT-28EB80B9",
+          "details": {
+            "commentId": "C-18F641A0"
+          },
+          "createdAt": "2026-10-13T05:07:09.799Z"
+        },
+        {
+          "id": "AUD-56068019",
+          "actor": "Demo BU SPOC",
+          "actorId": "u-spoc",
+          "action": "DRAFT_SECTION_SAVED",
+          "entityType": "PricingCase",
+          "entityId": "PT-28EB80B9",
+          "details": {
+            "section": "resource-estimates",
+            "revision": 2
+          },
+          "createdAt": "2026-10-13T05:06:43.535Z"
+        },
+        {
+          "id": "AUD-B082FAE5",
+          "actor": "Demo Client Partner",
+          "actorId": "u-cp",
+          "action": "WORKFLOW_STAGE_CHANGED",
+          "entityType": "PricingCase",
+          "entityId": "PT-28EB80B9",
+          "details": {
+            "stage": "Recognition of Need",
+            "reason": "Customer requirements confirmed"
+          },
+          "createdAt": "2026-10-13T05:02:51.339Z"
+        },
+        {
+          "id": "AUD-2FD122D0",
+          "actor": "Demo Client Partner",
+          "actorId": "u-cp",
+          "action": "PRICING_CASE_CREATED",
+          "entityType": "PricingCase",
+          "entityId": "PT-28EB80B9",
+          "details": {
+            "opportunityId": "SF-ML-DEMO-002",
+            "source": "Manual sample provider"
+          },
+          "createdAt": "2026-10-13T05:01:43.975Z"
+        }
+      ],
+      "opportunitySnapshot": {
+        "opportunityId": "SF-ML-DEMO-002",
+        "opportunityName": "Northstar ML Engineering Project",
+        "account": "Northstar Retail",
+        "bu": "R&M",
+        "owner": "Demo Client Partner",
+        "region": "India",
+        "capability": "Data engineering",
+        "deliveryModel": "Offshore",
+        "scope": "One ML Engineer to develop prediction models",
+        "startDate": "2026-11-01",
+        "contractEndDate": "2027-04-30",
+        "durationMonths": 6,
+        "budget": 50000,
+        "targetMarginPct": 40,
+        "discountPct": 0,
+        "colaPct": 0,
+        "priorScope": "",
+        "extraResourceNotes": "",
+        "opportunityType": "New business",
+        "currency": "USD",
+        "workTypes": [
+          "T&M"
+        ],
+        "receivedAt": "2026-10-13T05:01:43.971Z",
+        "source": "Manual sample provider"
+      },
+      "opportunityType": "New business",
+      "region": "India",
+      "capability": "Data engineering",
+      "deliveryModel": "Offshore",
+      "scope": "One ML Engineer to develop prediction models",
+      "startDate": "2026-11-01",
+      "contractEndDate": "2027-04-30",
+      "durationMonths": 6,
+      "discountPct": 0,
+      "colaPct": 0,
+      "priorScope": "",
+      "extraResourceNotes": "",
+      "stage": "Recognition of Need",
+      "negotiations": [],
+      "calculations": [],
+      "workflowHistory": [
+        {
+          "from": "Suspect",
+          "to": "Recognition of Need",
+          "actor": "Demo Client Partner",
+          "at": "2026-10-13T05:02:51.339Z",
+          "reason": "Customer requirements confirmed"
+        }
+      ],
+      "stageChangedAt": "2026-10-13T05:02:51.339Z",
+      "costHistory": [
+        {
+          "lineId": "NEW-1791867834622",
+          "role": "ML Engineer",
+          "grade": "G3",
+          "currency": "USD",
+          "previousCost": 0,
+          "costPerHour": 45,
+          "actor": "Demo BU SPOC",
+          "at": "2026-10-13T05:08:40.284Z",
+          "revision": 3
+        },
+        {
+          "lineId": "NEW-1791867834622",
+          "role": "ML Engineer",
+          "grade": "G3",
+          "currency": "USD",
+          "previousCost": null,
+          "costPerHour": 0,
+          "actor": "Demo BU SPOC",
+          "at": "2026-10-13T05:06:43.535Z",
+          "revision": 2
+        }
+      ]
+    },
+    {
+      "id": "PT-1001",
+      "opportunityId": "SF-OPP-1001",
+      "opportunityName": "Northstar Retail Data Modernization",
+      "account": "Northstar Retail",
+      "bu": "R&M",
+      "status": "Negotiation",
+      "lifecycle": "Open",
+      "owner": "Demo Client Partner",
+      "assignedUsers": [
+        "u-admin",
+        "u-cp",
+        "u-fin",
+        "u-spoc",
+        "u-bu"
+      ],
+      "financeVisible": true,
+      "costVisible": false,
+      "budget": 220000,
+      "targetMarginPct": 40,
+      "currency": "USD",
+      "workTypes": [
+        "T&M",
+        "FTE"
+      ],
+      "lines": [
+        {
+          "id": "L-1001",
+          "bu": "R&M",
+          "workType": "T&M",
+          "role": "Data Engineer",
+          "grade": "G3",
+          "location": "India",
+          "classification": "Offshore",
+          "hoursPerPeriod": 160,
+          "utilizationPct": 80,
+          "startDate": "2026-11-01",
+          "endDate": "2027-04-30",
+          "periods": 6,
+          "costPerHour": 22,
+          "currency": "USD",
+          "account": "Northstar Retail",
+          "quantity": 1,
+          "availability": "Available - sample data"
+        },
+        {
+          "id": "L-1002",
+          "bu": "R&M",
+          "workType": "FTE",
+          "role": "Software Engineer",
+          "grade": "G2",
+          "location": "India",
+          "classification": "Offshore",
+          "hoursPerPeriod": 160,
+          "utilizationPct": 100,
+          "startDate": "2026-11-01",
+          "endDate": "2027-04-30",
+          "periods": 6,
+          "costPerHour": 16,
+          "currency": "USD",
+          "account": "Northstar Retail",
+          "quantity": 1,
+          "availability": "Available - sample data"
+        }
+      ],
+      "revision": 3,
+      "draftSavedAt": "2026-10-12T14:46:17.287Z",
+      "versions": [
+        {
+          "id": "VER-8BFE66A2",
+          "number": 2,
+          "status": "Approved",
+          "createdAt": "2026-10-12T14:23:42.956Z",
+          "createdBy": "Demo Administrator",
+          "revision": 2,
+          "snapshot": [
+            {
+              "id": "L-1001",
+              "bu": "R&M",
+              "workType": "T&M",
+              "role": "Data Engineer",
+              "grade": "G3",
+              "location": "India",
+              "classification": "Offshore",
+              "hoursPerPeriod": 160,
+              "utilizationPct": 80,
+              "startDate": "2026-11-01",
+              "endDate": "2027-04-30",
+              "periods": 6,
+              "costPerHour": 18,
+              "currency": "USD",
+              "account": "Northstar Retail",
+              "quantity": 1,
+              "availability": "Available - sample data"
+            },
+            {
+              "id": "L-1002",
+              "bu": "R&M",
+              "workType": "FTE",
+              "role": "Software Engineer",
+              "grade": "G2",
+              "location": "India",
+              "classification": "Offshore",
+              "hoursPerPeriod": 160,
+              "utilizationPct": 100,
+              "startDate": "2026-11-01",
+              "endDate": "2027-04-30",
+              "periods": 6,
+              "costPerHour": 16,
+              "currency": "USD",
+              "account": "Northstar Retail",
+              "quantity": 1,
+              "availability": "Available - sample data"
+            }
+          ],
+          "calculation": {
+            "lineResults": [
+              {
+                "id": "L-1001",
+                "bu": "R&M",
+                "workType": "T&M",
+                "role": "Data Engineer",
+                "grade": "G3",
+                "location": "India",
+                "classification": "Offshore",
+                "hoursPerPeriod": 160,
+                "utilizationPct": 80,
+                "startDate": "2026-11-01",
+                "endDate": "2027-04-30",
+                "periods": 6,
+                "costPerHour": 18,
+                "currency": "USD",
+                "account": "Northstar Retail",
+                "quantity": 1,
+                "availability": "Available - sample data",
+                "rateResolution": "Resolved",
+                "rateSource": "Client-specific rate",
+                "rateId": "RATE-001",
+                "resolvedRate": 42,
+                "totalHours": 960,
+                "utilizedHours": 768,
+                "revenue": 32256,
+                "cost": 17280,
+                "errors": []
+              },
+              {
+                "id": "L-1002",
+                "bu": "R&M",
+                "workType": "FTE",
+                "role": "Software Engineer",
+                "grade": "G2",
+                "location": "India",
+                "classification": "Offshore",
+                "hoursPerPeriod": 160,
+                "utilizationPct": 100,
+                "startDate": "2026-11-01",
+                "endDate": "2027-04-30",
+                "periods": 6,
+                "costPerHour": 16,
+                "currency": "USD",
+                "account": "Northstar Retail",
+                "quantity": 1,
+                "availability": "Available - sample data",
+                "rateResolution": "Resolved",
+                "rateSource": "Client-specific rate",
+                "rateId": "RATE-DEMO-RM",
+                "resolvedRate": 35,
+                "totalHours": 960,
+                "utilizedHours": 960,
+                "revenue": 33600,
+                "cost": 15360,
+                "errors": []
+              }
+            ],
+            "currency": "USD",
+            "preColaRevenue": 65856,
+            "baseRevenue": 65856,
+            "colaPct": 0,
+            "discountPct": 4.34,
+            "discountAmount": 2856,
+            "totalRevenue": 63000,
+            "totalCost": 32640,
+            "contributionMarginPct": 48.19,
+            "targetMarginPct": 40,
+            "targetRevenue": 54400,
+            "pricingGap": -8600,
+            "warnings": [
+              "DEMO / UNAPPROVED: Finance has not approved the contribution-margin formula, eligible-cost definition, rounding policy, or target-gap formula.",
+              "POC assumption: revenue = hours × utilization × resolved hourly rate; cost = total scheduled hours × cost per hour. Validate work-type-specific rules with Finance."
+            ],
+            "exceptions": []
+          },
+          "calculationId": "CALC-FB2B0B6E",
+          "negotiationId": "NEG-F65EF8B5",
+          "pricingTerms": {
+            "discountPct": 0,
+            "colaPct": 0,
+            "offeredPrice": 63000
+          },
+          "ruleSnapshot": {
+            "formulaApproved": false,
+            "targetMarginPct": 40,
+            "fxRate": 1
+          },
+          "approvals": [
+            {
+              "step": 1,
+              "role": "BU Head",
+              "status": "Approved",
+              "actor": "Demo BU Head",
+              "actorId": "u-bu",
+              "at": "2026-10-13T03:23:42.412Z",
+              "reason": "It is approved"
+            },
+            {
+              "step": 2,
+              "role": "Finance",
+              "status": "Approved",
+              "actor": "Demo Finance Reviewer",
+              "actorId": "u-fin",
+              "at": "2026-10-13T03:24:12.234Z",
+              "reason": "It is approved"
+            }
+          ],
+          "comments": "Revised offer following client negotiation",
+          "submittedAt": "2026-10-12T14:24:30.451Z",
+          "submittedBy": "Demo Administrator",
+          "approvedAt": "2026-10-13T03:24:12.234Z"
+        },
+        {
+          "id": "VER-BE7B6157",
+          "number": 1,
+          "status": "Draft",
+          "createdAt": "2026-10-12T14:21:43.981Z",
+          "createdBy": "Demo Administrator",
+          "revision": 1,
+          "snapshot": [
+            {
+              "id": "L-1001",
+              "bu": "R&M",
+              "workType": "T&M",
+              "role": "Data Engineer",
+              "grade": "G3",
+              "location": "India",
+              "classification": "Offshore",
+              "hoursPerPeriod": 160,
+              "utilizationPct": 80,
+              "startDate": "2026-11-01",
+              "endDate": "2027-04-30",
+              "periods": 6,
+              "costPerHour": 18,
+              "currency": "USD",
+              "account": "Northstar Retail",
+              "quantity": 1,
+              "availability": "Available - sample data"
+            },
+            {
+              "id": "L-1002",
+              "bu": "R&M",
+              "workType": "FTE",
+              "role": "Software Engineer",
+              "grade": "G2",
+              "location": "India",
+              "classification": "Offshore",
+              "hoursPerPeriod": 160,
+              "utilizationPct": 100,
+              "startDate": "2026-11-01",
+              "endDate": "2027-04-30",
+              "periods": 6,
+              "costPerHour": 16,
+              "currency": "USD",
+              "account": "Northstar Retail",
+              "quantity": 1,
+              "availability": "Available - sample data"
+            }
+          ],
+          "calculation": {
+            "lineResults": [
+              {
+                "id": "L-1001",
+                "bu": "R&M",
+                "workType": "T&M",
+                "role": "Data Engineer",
+                "grade": "G3",
+                "location": "India",
+                "classification": "Offshore",
+                "hoursPerPeriod": 160,
+                "utilizationPct": 80,
+                "startDate": "2026-11-01",
+                "endDate": "2027-04-30",
+                "periods": 6,
+                "costPerHour": 18,
+                "currency": "USD",
+                "account": "Northstar Retail",
+                "quantity": 1,
+                "availability": "Available - sample data",
+                "rateResolution": "Resolved",
+                "rateSource": "Client-specific rate",
+                "rateId": "RATE-001",
+                "resolvedRate": 42,
+                "totalHours": 960,
+                "utilizedHours": 768,
+                "revenue": 32256,
+                "cost": 17280,
+                "errors": []
+              },
+              {
+                "id": "L-1002",
+                "bu": "R&M",
+                "workType": "FTE",
+                "role": "Software Engineer",
+                "grade": "G2",
+                "location": "India",
+                "classification": "Offshore",
+                "hoursPerPeriod": 160,
+                "utilizationPct": 100,
+                "startDate": "2026-11-01",
+                "endDate": "2027-04-30",
+                "periods": 6,
+                "costPerHour": 16,
+                "currency": "USD",
+                "account": "Northstar Retail",
+                "quantity": 1,
+                "availability": "Available - sample data",
+                "rateResolution": "Resolved",
+                "rateSource": "Client-specific rate",
+                "rateId": "RATE-DEMO-RM",
+                "resolvedRate": 35,
+                "totalHours": 960,
+                "utilizedHours": 960,
+                "revenue": 33600,
+                "cost": 15360,
+                "errors": []
+              }
+            ],
+            "currency": "USD",
+            "preColaRevenue": 65856,
+            "baseRevenue": 65856,
+            "colaPct": 0,
+            "discountPct": 0,
+            "discountAmount": 0,
+            "totalRevenue": 65856,
+            "totalCost": 32640,
+            "contributionMarginPct": 50.44,
+            "targetMarginPct": 40,
+            "targetRevenue": 54400,
+            "pricingGap": -11456,
+            "warnings": [
+              "DEMO / UNAPPROVED: Finance has not approved the contribution-margin formula, eligible-cost definition, rounding policy, or target-gap formula.",
+              "POC assumption: revenue = hours × utilization × resolved hourly rate; cost = total scheduled hours × cost per hour. Validate work-type-specific rules with Finance."
+            ],
+            "exceptions": []
+          },
+          "calculationId": "CALC-2542CC41",
+          "negotiationId": null,
+          "pricingTerms": {
+            "discountPct": 0,
+            "colaPct": 0
+          },
+          "ruleSnapshot": {
+            "formulaApproved": false,
+            "targetMarginPct": 40,
+            "fxRate": 1
+          },
+          "approvals": [],
+          "comments": "Initial proposal to client"
+        }
+      ],
+      "comments": [
+        {
+          "id": "C-A263DF7D",
+          "author": "Demo Client Partner",
+          "text": "Cost information required from the R&M HR provider for Data Engineer, G3, India. Awaiting hourly cost before final pricing",
+          "createdAt": "2026-10-12T14:38:51.511Z"
+        },
+        {
+          "id": "C-1",
+          "author": "Demo Client Partner",
+          "text": "Initial estimate loaded from the synthetic opportunity.",
+          "createdAt": "2026-10-12T10:37:11.670Z"
+        }
+      ],
+      "exceptions": [],
+      "handoffs": [],
+      "audit": [
+        {
+          "id": "AUD-B78F23BE",
+          "actor": "Demo Finance Reviewer",
+          "actorId": "u-fin",
+          "action": "VERSION_APPROVE_STEP_2",
+          "entityType": "PricingVersion",
+          "entityId": "VER-8BFE66A2",
+          "details": {
+            "caseId": "PT-1001",
+            "taskRole": "Finance",
+            "reason": "It is approved"
+          },
+          "createdAt": "2026-10-13T03:24:12.234Z"
+        },
+        {
+          "id": "AUD-7BE631FE",
+          "actor": "Demo BU Head",
+          "actorId": "u-bu",
+          "action": "VERSION_APPROVE_STEP_1",
+          "entityType": "PricingVersion",
+          "entityId": "VER-8BFE66A2",
+          "details": {
+            "caseId": "PT-1001",
+            "taskRole": "BU Head",
+            "reason": "It is approved"
+          },
+          "createdAt": "2026-10-13T03:23:42.414Z"
+        },
+        {
+          "id": "AUD-361FF287",
+          "actor": "Demo BU SPOC",
+          "actorId": "u-spoc",
+          "action": "CALCULATION_SAVED",
+          "entityType": "PricingCase",
+          "entityId": "PT-1001",
+          "details": {
+            "calculationId": "CALC-021A3974",
+            "revision": 3
+          },
+          "createdAt": "2026-10-12T14:46:17.316Z"
+        },
+        {
+          "id": "AUD-AA501C02",
+          "actor": "Demo BU SPOC",
+          "actorId": "u-spoc",
+          "action": "DRAFT_SECTION_SAVED",
+          "entityType": "PricingCase",
+          "entityId": "PT-1001",
+          "details": {
+            "section": "resource-estimates",
+            "revision": 3
+          },
+          "createdAt": "2026-10-12T14:46:17.287Z"
+        },
+        {
+          "id": "AUD-5C0C6C37",
+          "actor": "Demo BU SPOC",
+          "actorId": "u-spoc",
+          "action": "DRAFT_SECTION_SAVED",
+          "entityType": "PricingCase",
+          "entityId": "PT-1001",
+          "details": {
+            "section": "resource-estimates",
+            "revision": 3
+          },
+          "createdAt": "2026-10-12T14:45:40.838Z"
+        },
+        {
+          "id": "AUD-699EA5A8",
+          "actor": "Demo BU SPOC",
+          "actorId": "u-spoc",
+          "action": "DRAFT_SECTION_SAVED",
+          "entityType": "PricingCase",
+          "entityId": "PT-1001",
+          "details": {
+            "section": "resource-estimates",
+            "revision": 3
+          },
+          "createdAt": "2026-10-12T14:45:33.608Z"
+        },
+        {
+          "id": "AUD-75012EDE",
+          "actor": "Demo Client Partner",
+          "actorId": "u-cp",
+          "action": "COMMENT_ADDED",
+          "entityType": "PricingCase",
+          "entityId": "PT-1001",
+          "details": {
+            "commentId": "C-A263DF7D"
+          },
+          "createdAt": "2026-10-12T14:38:51.511Z"
+        },
+        {
+          "id": "AUD-4AB7DE9A",
+          "actor": "Demo Administrator",
+          "actorId": "u-admin",
+          "action": "PRICING_VERSION_SUBMITTED",
+          "entityType": "PricingVersion",
+          "entityId": "VER-8BFE66A2",
+          "details": {
+            "caseId": "PT-1001",
+            "number": 2
+          },
+          "createdAt": "2026-10-12T14:24:30.451Z"
+        },
+        {
+          "id": "AUD-93C3F693",
+          "actor": "Demo Administrator",
+          "actorId": "u-admin",
+          "action": "PRICING_VERSION_CREATED",
+          "entityType": "PricingVersion",
+          "entityId": "VER-8BFE66A2",
+          "details": {
+            "caseId": "PT-1001",
+            "number": 2,
+            "calculationId": "CALC-FB2B0B6E"
+          },
+          "createdAt": "2026-10-12T14:23:42.956Z"
+        },
+        {
+          "id": "AUD-181C2E34",
+          "actor": "Demo Administrator",
+          "actorId": "u-admin",
+          "action": "CALCULATION_SAVED",
+          "entityType": "PricingCase",
+          "entityId": "PT-1001",
+          "details": {
+            "calculationId": "CALC-FB2B0B6E",
+            "revision": 2
+          },
+          "createdAt": "2026-10-12T14:23:21.048Z"
+        },
+        {
+          "id": "AUD-0CCA8486",
+          "actor": "Demo Administrator",
+          "actorId": "u-admin",
+          "action": "DRAFT_SECTION_SAVED",
+          "entityType": "PricingCase",
+          "entityId": "PT-1001",
+          "details": {
+            "section": "resource-estimates",
+            "revision": 2
+          },
+          "createdAt": "2026-10-12T14:23:21.024Z"
+        },
+        {
+          "id": "AUD-4D9C1704",
+          "actor": "Demo Administrator",
+          "actorId": "u-admin",
+          "action": "NEGOTIATION_RECORDED",
+          "entityType": "PricingCase",
+          "entityId": "PT-1001",
+          "details": {
+            "negotiationId": "NEG-F65EF8B5",
+            "versionId": "VER-BE7B6157"
+          },
+          "createdAt": "2026-10-12T14:23:09.935Z"
+        },
+        {
+          "id": "AUD-3206D1A4",
+          "actor": "Demo Administrator",
+          "actorId": "u-admin",
+          "action": "PRICING_VERSION_CREATED",
+          "entityType": "PricingVersion",
+          "entityId": "VER-BE7B6157",
+          "details": {
+            "caseId": "PT-1001",
+            "number": 1,
+            "calculationId": "CALC-2542CC41"
+          },
+          "createdAt": "2026-10-12T14:21:43.981Z"
+        },
+        {
+          "id": "AUD-57569F07",
+          "actor": "Demo Administrator",
+          "actorId": "u-admin",
+          "action": "CALCULATION_SAVED",
+          "entityType": "PricingCase",
+          "entityId": "PT-1001",
+          "details": {
+            "calculationId": "CALC-2542CC41",
+            "revision": 1
+          },
+          "createdAt": "2026-10-12T14:21:28.757Z"
+        },
+        {
+          "id": "AUD-2CC3C808",
+          "actor": "Demo Administrator",
+          "actorId": "u-admin",
+          "action": "DRAFT_SECTION_SAVED",
+          "entityType": "PricingCase",
+          "entityId": "PT-1001",
+          "details": {
+            "section": "resource-estimates",
+            "revision": 1
+          },
+          "createdAt": "2026-10-12T14:21:28.732Z"
+        },
+        {
+          "id": "AUD-C8CFEC1C",
+          "actor": "Demo Administrator",
+          "actorId": "u-admin",
+          "action": "DRAFT_SECTION_SAVED",
+          "entityType": "PricingCase",
+          "entityId": "PT-1001",
+          "details": {
+            "section": "resource-estimates",
+            "revision": 1
+          },
+          "createdAt": "2026-10-12T14:21:21.692Z"
+        },
+        {
+          "id": "AUD-B2562850",
+          "actor": "Demo Administrator",
+          "actorId": "u-admin",
+          "action": "DRAFT_SECTION_SAVED",
+          "entityType": "PricingCase",
+          "entityId": "PT-1001",
+          "details": {
+            "section": "resource-estimates",
+            "revision": 1
+          },
+          "createdAt": "2026-10-12T14:17:35.005Z"
+        },
+        {
+          "id": "AUD-7ED45AFE",
+          "actor": "Demo Administrator",
+          "actorId": "u-admin",
+          "action": "DRAFT_SECTION_SAVED",
+          "entityType": "PricingCase",
+          "entityId": "PT-1001",
+          "details": {
+            "section": "resource-estimates",
+            "revision": 1
+          },
+          "createdAt": "2026-10-12T14:17:32.219Z"
+        },
+        {
+          "id": "AUD-7CAD9FDC",
+          "actor": "Demo Administrator",
+          "actorId": "u-admin",
+          "action": "DRAFT_SECTION_SAVED",
+          "entityType": "PricingCase",
+          "entityId": "PT-1001",
+          "details": {
+            "section": "resource-estimates",
+            "revision": 1
+          },
+          "createdAt": "2026-10-12T14:17:11.820Z"
+        },
+        {
+          "id": "AUD-73CBF898",
+          "actor": "Demo Administrator",
+          "actorId": "u-admin",
+          "action": "DRAFT_SECTION_SAVED",
+          "entityType": "PricingCase",
+          "entityId": "PT-1001",
+          "details": {
+            "section": "resource-estimates",
+            "revision": 1
+          },
+          "createdAt": "2026-10-12T14:17:08.760Z"
+        },
+        {
+          "id": "AUD-BE5036E2",
+          "actor": "Demo Administrator",
+          "actorId": "u-admin",
+          "action": "CALCULATION_SAVED",
+          "entityType": "PricingCase",
+          "entityId": "PT-1001",
+          "details": {
+            "calculationId": "CALC-299CA168",
+            "revision": 1
+          },
+          "createdAt": "2026-10-12T14:17:07.652Z"
+        },
+        {
+          "id": "AUD-EC599183",
+          "actor": "Demo Administrator",
+          "actorId": "u-admin",
+          "action": "DRAFT_SECTION_SAVED",
+          "entityType": "PricingCase",
+          "entityId": "PT-1001",
+          "details": {
+            "section": "resource-estimates",
+            "revision": 1
+          },
+          "createdAt": "2026-10-12T14:17:07.617Z"
+        }
+      ],
+      "stage": "Approval",
+      "opportunityType": "New business",
+      "region": "India",
+      "capability": "Data Engineer",
+      "deliveryModel": "Offshore",
+      "scope": "Editable sample delivery scope",
+      "startDate": "2026-11-01",
+      "contractEndDate": "2027-04-30",
+      "durationMonths": 6,
+      "discountPct": 0,
+      "colaPct": 0,
+      "priorScope": "",
+      "extraResourceNotes": "",
+      "negotiations": [
+        {
+          "id": "NEG-F65EF8B5",
+          "discussionDate": "2026-10-12",
+          "requestedPrice": 60000,
+          "offeredPrice": 63000,
+          "notes": "Client requested a lower price we proposed a revised offer while retaining scope",
+          "outcome": "Counteroffer",
+          "nextAction": "Submit revised pricing fo internal approval",
+          "versionId": "VER-BE7B6157",
+          "discountPct": 4.34,
+          "contributionMarginPct": 48.19,
+          "currency": "USD",
+          "createdBy": "Demo Administrator",
+          "createdAt": "2026-10-12T14:23:09.935Z"
+        }
+      ],
+      "calculations": [
+        {
+          "id": "CALC-299CA168",
+          "revision": 1,
+          "createdAt": "2026-10-12T14:17:07.652Z",
+          "createdBy": "Demo Administrator",
+          "calculation": {
+            "lineResults": [
+              {
+                "id": "L-1001",
+                "bu": "R&M",
+                "workType": "T&M",
+                "role": "Data Engineer",
+                "grade": "G3",
+                "location": "India",
+                "classification": "Offshore",
+                "hoursPerPeriod": 160,
+                "utilizationPct": 80,
+                "startDate": "2026-11-01",
+                "endDate": "2027-04-30",
+                "periods": 6,
+                "costPerHour": 18,
+                "currency": "USD",
+                "account": "Northstar Retail",
+                "quantity": 1,
+                "availability": "Available - sample data",
+                "rateResolution": "Resolved",
+                "rateSource": "Client-specific rate",
+                "rateId": "RATE-001",
+                "resolvedRate": 42,
+                "totalHours": 960,
+                "utilizedHours": 768,
+                "revenue": 32256,
+                "cost": 17280,
+                "errors": []
+              },
+              {
+                "id": "L-1002",
+                "bu": "R&M",
+                "workType": "FTE",
+                "role": "Software Engineer",
+                "grade": "G2",
+                "location": "India",
+                "classification": "Offshore",
+                "hoursPerPeriod": 160,
+                "utilizationPct": 100,
+                "startDate": "2026-11-01",
+                "endDate": "2027-04-30",
+                "periods": 6,
+                "costPerHour": 16,
+                "currency": "USD",
+                "account": "Northstar Retail",
+                "quantity": 1,
+                "availability": "Available - sample data",
+                "rateResolution": "Resolved",
+                "rateSource": "Client-specific rate",
+                "rateId": "RATE-DEMO-RM",
+                "resolvedRate": 35,
+                "totalHours": 960,
+                "utilizedHours": 960,
+                "revenue": 33600,
+                "cost": 15360,
+                "errors": []
+              }
+            ],
+            "currency": "USD",
+            "preColaRevenue": 65856,
+            "baseRevenue": 65856,
+            "colaPct": 0,
+            "discountPct": 0,
+            "discountAmount": 0,
+            "totalRevenue": 65856,
+            "totalCost": 32640,
+            "contributionMarginPct": 50.44,
+            "targetMarginPct": 40,
+            "targetRevenue": 54400,
+            "pricingGap": -11456,
+            "warnings": [
+              "DEMO / UNAPPROVED: Finance has not approved the contribution-margin formula, eligible-cost definition, rounding policy, or target-gap formula.",
+              "POC assumption: revenue = hours × utilization × resolved hourly rate; cost = total scheduled hours × cost per hour. Validate work-type-specific rules with Finance."
+            ],
+            "exceptions": []
+          }
+        },
+        {
+          "id": "CALC-2542CC41",
+          "revision": 1,
+          "createdAt": "2026-10-12T14:21:28.757Z",
+          "createdBy": "Demo Administrator",
+          "calculation": {
+            "lineResults": [
+              {
+                "id": "L-1001",
+                "bu": "R&M",
+                "workType": "T&M",
+                "role": "Data Engineer",
+                "grade": "G3",
+                "location": "India",
+                "classification": "Offshore",
+                "hoursPerPeriod": 160,
+                "utilizationPct": 80,
+                "startDate": "2026-11-01",
+                "endDate": "2027-04-30",
+                "periods": 6,
+                "costPerHour": 18,
+                "currency": "USD",
+                "account": "Northstar Retail",
+                "quantity": 1,
+                "availability": "Available - sample data",
+                "rateResolution": "Resolved",
+                "rateSource": "Client-specific rate",
+                "rateId": "RATE-001",
+                "resolvedRate": 42,
+                "totalHours": 960,
+                "utilizedHours": 768,
+                "revenue": 32256,
+                "cost": 17280,
+                "errors": []
+              },
+              {
+                "id": "L-1002",
+                "bu": "R&M",
+                "workType": "FTE",
+                "role": "Software Engineer",
+                "grade": "G2",
+                "location": "India",
+                "classification": "Offshore",
+                "hoursPerPeriod": 160,
+                "utilizationPct": 100,
+                "startDate": "2026-11-01",
+                "endDate": "2027-04-30",
+                "periods": 6,
+                "costPerHour": 16,
+                "currency": "USD",
+                "account": "Northstar Retail",
+                "quantity": 1,
+                "availability": "Available - sample data",
+                "rateResolution": "Resolved",
+                "rateSource": "Client-specific rate",
+                "rateId": "RATE-DEMO-RM",
+                "resolvedRate": 35,
+                "totalHours": 960,
+                "utilizedHours": 960,
+                "revenue": 33600,
+                "cost": 15360,
+                "errors": []
+              }
+            ],
+            "currency": "USD",
+            "preColaRevenue": 65856,
+            "baseRevenue": 65856,
+            "colaPct": 0,
+            "discountPct": 0,
+            "discountAmount": 0,
+            "totalRevenue": 65856,
+            "totalCost": 32640,
+            "contributionMarginPct": 50.44,
+            "targetMarginPct": 40,
+            "targetRevenue": 54400,
+            "pricingGap": -11456,
+            "warnings": [
+              "DEMO / UNAPPROVED: Finance has not approved the contribution-margin formula, eligible-cost definition, rounding policy, or target-gap formula.",
+              "POC assumption: revenue = hours × utilization × resolved hourly rate; cost = total scheduled hours × cost per hour. Validate work-type-specific rules with Finance."
+            ],
+            "exceptions": []
+          }
+        },
+        {
+          "id": "CALC-FB2B0B6E",
+          "revision": 2,
+          "createdAt": "2026-10-12T14:23:21.047Z",
+          "createdBy": "Demo Administrator",
+          "calculation": {
+            "lineResults": [
+              {
+                "id": "L-1001",
+                "bu": "R&M",
+                "workType": "T&M",
+                "role": "Data Engineer",
+                "grade": "G3",
+                "location": "India",
+                "classification": "Offshore",
+                "hoursPerPeriod": 160,
+                "utilizationPct": 80,
+                "startDate": "2026-11-01",
+                "endDate": "2027-04-30",
+                "periods": 6,
+                "costPerHour": 18,
+                "currency": "USD",
+                "account": "Northstar Retail",
+                "quantity": 1,
+                "availability": "Available - sample data",
+                "rateResolution": "Resolved",
+                "rateSource": "Client-specific rate",
+                "rateId": "RATE-001",
+                "resolvedRate": 42,
+                "totalHours": 960,
+                "utilizedHours": 768,
+                "revenue": 32256,
+                "cost": 17280,
+                "errors": []
+              },
+              {
+                "id": "L-1002",
+                "bu": "R&M",
+                "workType": "FTE",
+                "role": "Software Engineer",
+                "grade": "G2",
+                "location": "India",
+                "classification": "Offshore",
+                "hoursPerPeriod": 160,
+                "utilizationPct": 100,
+                "startDate": "2026-11-01",
+                "endDate": "2027-04-30",
+                "periods": 6,
+                "costPerHour": 16,
+                "currency": "USD",
+                "account": "Northstar Retail",
+                "quantity": 1,
+                "availability": "Available - sample data",
+                "rateResolution": "Resolved",
+                "rateSource": "Client-specific rate",
+                "rateId": "RATE-DEMO-RM",
+                "resolvedRate": 35,
+                "totalHours": 960,
+                "utilizedHours": 960,
+                "revenue": 33600,
+                "cost": 15360,
+                "errors": []
+              }
+            ],
+            "currency": "USD",
+            "preColaRevenue": 65856,
+            "baseRevenue": 65856,
+            "colaPct": 0,
+            "discountPct": 4.34,
+            "discountAmount": 2856,
+            "totalRevenue": 63000,
+            "totalCost": 32640,
+            "contributionMarginPct": 48.19,
+            "targetMarginPct": 40,
+            "targetRevenue": 54400,
+            "pricingGap": -8600,
+            "warnings": [
+              "DEMO / UNAPPROVED: Finance has not approved the contribution-margin formula, eligible-cost definition, rounding policy, or target-gap formula.",
+              "POC assumption: revenue = hours × utilization × resolved hourly rate; cost = total scheduled hours × cost per hour. Validate work-type-specific rules with Finance."
+            ],
+            "exceptions": []
+          }
+        },
+        {
+          "id": "CALC-021A3974",
+          "revision": 3,
+          "createdAt": "2026-10-12T14:46:17.316Z",
+          "createdBy": "Demo BU SPOC",
+          "calculation": {
+            "lineResults": [
+              {
+                "id": "L-1001",
+                "bu": "R&M",
+                "workType": "T&M",
+                "role": "Data Engineer",
+                "grade": "G3",
+                "location": "India",
+                "classification": "Offshore",
+                "hoursPerPeriod": 160,
+                "utilizationPct": 80,
+                "startDate": "2026-11-01",
+                "endDate": "2027-04-30",
+                "periods": 6,
+                "costPerHour": 22,
+                "currency": "USD",
+                "account": "Northstar Retail",
+                "quantity": 1,
+                "availability": "Available - sample data",
+                "rateResolution": "Resolved",
+                "rateSource": "Client-specific rate",
+                "rateId": "RATE-001",
+                "resolvedRate": 42,
+                "totalHours": 960,
+                "utilizedHours": 768,
+                "revenue": 32256,
+                "cost": 21120,
+                "errors": []
+              },
+              {
+                "id": "L-1002",
+                "bu": "R&M",
+                "workType": "FTE",
+                "role": "Software Engineer",
+                "grade": "G2",
+                "location": "India",
+                "classification": "Offshore",
+                "hoursPerPeriod": 160,
+                "utilizationPct": 100,
+                "startDate": "2026-11-01",
+                "endDate": "2027-04-30",
+                "periods": 6,
+                "costPerHour": 16,
+                "currency": "USD",
+                "account": "Northstar Retail",
+                "quantity": 1,
+                "availability": "Available - sample data",
+                "rateResolution": "Resolved",
+                "rateSource": "Client-specific rate",
+                "rateId": "RATE-DEMO-RM",
+                "resolvedRate": 35,
+                "totalHours": 960,
+                "utilizedHours": 960,
+                "revenue": 33600,
+                "cost": 15360,
+                "errors": []
+              }
+            ],
+            "currency": "USD",
+            "preColaRevenue": 65856,
+            "baseRevenue": 65856,
+            "colaPct": 0,
+            "discountPct": 4.34,
+            "discountAmount": 2856,
+            "totalRevenue": 63000,
+            "totalCost": 36480,
+            "contributionMarginPct": 42.1,
+            "targetMarginPct": 40,
+            "targetRevenue": 60800,
+            "pricingGap": -2200,
+            "warnings": [
+              "DEMO / UNAPPROVED: Finance has not approved the contribution-margin formula, eligible-cost definition, rounding policy, or target-gap formula.",
+              "POC assumption: revenue = hours × utilization × resolved hourly rate; cost = total scheduled hours × cost per hour. Validate work-type-specific rules with Finance."
+            ],
+            "exceptions": []
+          }
+        }
+      ],
+      "workflowHistory": [
+        {
+          "from": "Proposal",
+          "to": "Negotiation",
+          "actor": "Demo Administrator",
+          "at": "2026-10-12T14:23:09.935Z",
+          "reason": "Pricing discussion recorded"
+        },
+        {
+          "from": "Negotiation",
+          "to": "Approval",
+          "actor": "Demo Administrator",
+          "at": "2026-10-12T14:24:30.451Z",
+          "reason": "Submitted V2"
+        }
+      ],
+      "stageChangedAt": "2026-10-12T14:24:30.451Z",
+      "offeredPrice": 63000
+    },
+    {
+      "id": "PT-1002",
+      "opportunityId": "SF-OPP-1002",
+      "opportunityName": "BluePeak Platform Delivery",
+      "account": "BluePeak Systems",
+      "bu": "TMT1",
+      "status": "Negotiation",
+      "lifecycle": "Open",
+      "owner": "Demo BU SPOC",
+      "assignedUsers": [
+        "u-admin",
+        "u-spoc",
+        "u-fin",
+        "u-bu"
+      ],
+      "financeVisible": true,
+      "costVisible": true,
+      "budget": 150000,
+      "targetMarginPct": 40,
+      "currency": "USD",
+      "workTypes": [
+        "Program",
+        "FTE"
+      ],
+      "lines": [
+        {
+          "id": "L-2001",
+          "bu": "TMT1",
+          "workType": "Program",
+          "role": "Solution Architect",
+          "grade": "G5",
+          "location": "United States",
+          "classification": "Onshore",
+          "hoursPerPeriod": 120,
+          "utilizationPct": 70,
+          "startDate": "2026-11-01",
+          "endDate": "2027-01-31",
+          "periods": 3,
+          "costPerHour": 70,
+          "currency": "USD",
+          "account": "BluePeak Systems",
+          "quantity": 1,
+          "availability": "Available - sample data"
+        },
+        {
+          "id": "L-2002",
+          "bu": "TMT1",
+          "workType": "FTE",
+          "role": "Cloud Engineer",
+          "grade": "G3",
+          "location": "India",
+          "classification": "Offshore",
+          "hoursPerPeriod": 160,
+          "utilizationPct": 100,
+          "startDate": "2026-11-01",
+          "endDate": "2027-04-30",
+          "periods": 6,
+          "costPerHour": 20,
+          "currency": "USD",
+          "account": "BluePeak Systems",
+          "quantity": 1,
+          "availability": "Available - sample data"
+        }
+      ],
+      "revision": 3,
+      "draftSavedAt": "2026-10-12T10:37:11.670Z",
+      "versions": [
+        {
+          "id": "VER-2001",
+          "number": 1,
+          "status": "Rejected",
+          "submittedAt": "2026-10-09T10:37:11.670Z",
+          "submittedBy": "Demo BU SPOC",
+          "snapshot": [
+            {
+              "id": "L-2001",
+              "bu": "TMT1",
+              "workType": "Program",
+              "role": "Solution Architect",
+              "grade": "G5",
+              "location": "United States",
+              "classification": "Onshore",
+              "hoursPerPeriod": 120,
+              "utilizationPct": 70,
+              "startDate": "2026-11-01",
+              "endDate": "2027-01-31",
+              "periods": 3,
+              "costPerHour": 70,
+              "currency": "USD",
+              "account": "BluePeak Systems"
+            },
+            {
+              "id": "L-2002",
+              "bu": "TMT1",
+              "workType": "FTE",
+              "role": "Cloud Engineer",
+              "grade": "G3",
+              "location": "India",
+              "classification": "Offshore",
+              "hoursPerPeriod": 160,
+              "utilizationPct": 100,
+              "startDate": "2026-11-01",
+              "endDate": "2027-04-30",
+              "periods": 6,
+              "costPerHour": 20,
+              "currency": "USD",
+              "account": "BluePeak Systems"
+            }
+          ],
+          "calculation": null,
+          "approvals": [
+            {
+              "step": 1,
+              "role": "BU Head",
+              "status": "Approved",
+              "actor": "Demo BU Head",
+              "at": "2026-10-09T10:37:11.671Z"
+            },
+            {
+              "step": 2,
+              "role": "Finance",
+              "status": "Rejected",
+              "actor": "Demo Finance Reviewer",
+              "reason": "Rework on cost assumptions",
+              "at": "2026-10-09T10:37:11.671Z"
+            }
+          ],
+          "rejectionReason": "Rework on cost assumptions"
+        },
+        {
+          "id": "VER-2002",
+          "number": 2,
+          "status": "Approved",
+          "submittedAt": "2026-10-12T10:37:11.671Z",
+          "submittedBy": "Demo BU SPOC",
+          "snapshot": [
+            {
+              "id": "L-2001",
+              "bu": "TMT1",
+              "workType": "Program",
+              "role": "Solution Architect",
+              "grade": "G5",
+              "location": "United States",
+              "classification": "Onshore",
+              "hoursPerPeriod": 120,
+              "utilizationPct": 70,
+              "startDate": "2026-11-01",
+              "endDate": "2027-01-31",
+              "periods": 3,
+              "costPerHour": 70,
+              "currency": "USD",
+              "account": "BluePeak Systems"
+            },
+            {
+              "id": "L-2002",
+              "bu": "TMT1",
+              "workType": "FTE",
+              "role": "Cloud Engineer",
+              "grade": "G3",
+              "location": "India",
+              "classification": "Offshore",
+              "hoursPerPeriod": 160,
+              "utilizationPct": 100,
+              "startDate": "2026-11-01",
+              "endDate": "2027-04-30",
+              "periods": 6,
+              "costPerHour": 20,
+              "currency": "USD",
+              "account": "BluePeak Systems"
+            }
+          ],
+          "calculation": {
+            "totalRevenue": 115000,
+            "totalCost": 59000,
+            "contributionMarginPct": 48.7
+          },
+          "approvals": [
+            {
+              "step": 1,
+              "role": "BU Head",
+              "status": "Approved",
+              "actorId": "u-admin",
+              "actor": "Demo Administrator",
+              "at": "2026-10-12T10:42:36.899Z",
+              "reason": ""
+            },
+            {
+              "step": 2,
+              "role": "Finance",
+              "status": "Approved",
+              "actorId": "u-admin",
+              "actor": "Demo Administrator",
+              "at": "2026-10-12T14:16:33.769Z",
+              "reason": "Approved"
+            }
+          ],
+          "comments": "Synthetic resubmission after rework",
+          "approvedAt": "2026-10-12T14:16:33.770Z"
+        }
+      ],
+      "comments": [],
+      "exceptions": [],
+      "handoffs": [],
+      "audit": [
+        {
+          "id": "AUD-BDE1A385",
+          "actor": "Demo Administrator",
+          "actorId": "u-admin",
+          "action": "VERSION_APPROVE_STEP_2",
+          "entityType": "PricingVersion",
+          "entityId": "VER-2002",
+          "details": {
+            "caseId": "PT-1002",
+            "taskRole": "Finance",
+            "reason": "Approved"
+          },
+          "createdAt": "2026-10-12T14:16:33.769Z"
+        },
+        {
+          "id": "AUD-A130A39F",
+          "actor": "Demo Administrator",
+          "actorId": "u-admin",
+          "action": "VERSION_APPROVE_STEP_1",
+          "entityType": "PricingVersion",
+          "entityId": "VER-2002",
+          "details": {
+            "caseId": "PT-1002",
+            "taskRole": "BU Head",
+            "reason": ""
+          },
+          "createdAt": "2026-10-12T10:42:36.900Z"
+        }
+      ],
+      "stage": "Approval",
+      "opportunityType": "New business",
+      "region": "United States",
+      "capability": "Solution Architect",
+      "deliveryModel": "Onshore",
+      "scope": "Editable sample delivery scope",
+      "startDate": "2026-11-01",
+      "contractEndDate": "2027-01-31",
+      "durationMonths": 3,
+      "discountPct": 0,
+      "colaPct": 0,
+      "priorScope": "",
+      "extraResourceNotes": "",
+      "negotiations": [],
+      "calculations": [],
+      "workflowHistory": [],
+      "stageChangedAt": "2026-10-12T10:37:11.670Z"
+    }
+  ],
+  "rateProposals": [
+    {
+      "id": "RP-001",
+      "account": "BluePeak Systems",
+      "bu": "TMT1",
+      "workType": "FTE",
+      "role": "Cloud Engineer",
+      "grade": "G3",
+      "location": "India",
+      "currency": "USD",
+      "amount": 39,
+      "startDate": "2026-11-01",
+      "endDate": "2027-12-31",
+      "status": "Pending Finance Approval",
+      "proposedBy": "u-spoc",
+      "createdAt": "2026-10-12T10:37:11.671Z"
+    }
+  ],
+  "audit": [
+    {
+      "id": "AUD-4270320F",
+      "actor": "Demo BU SPOC",
+      "actorId": "u-spoc",
+      "action": "DRAFT_SECTION_SAVED",
+      "entityType": "PricingCase",
+      "entityId": "PT-28EB80B9",
+      "details": {
+        "section": "resource-estimates",
+        "revision": 3
+      },
+      "createdAt": "2026-10-13T05:09:54.322Z"
+    },
+    {
+      "id": "AUD-16A87647",
+      "actor": "Demo BU SPOC",
+      "actorId": "u-spoc",
+      "action": "DRAFT_SECTION_SAVED",
+      "entityType": "PricingCase",
+      "entityId": "PT-28EB80B9",
+      "details": {
+        "section": "resource-estimates",
+        "revision": 3
+      },
+      "createdAt": "2026-10-13T05:08:40.284Z"
+    },
+    {
+      "id": "AUD-97104300",
+      "actor": "Demo BU SPOC",
+      "actorId": "u-spoc",
+      "action": "DRAFT_SECTION_SAVED",
+      "entityType": "PricingCase",
+      "entityId": "PT-28EB80B9",
+      "details": {
+        "section": "resource-estimates",
+        "revision": 2
+      },
+      "createdAt": "2026-10-13T05:07:35.076Z"
+    },
+    {
+      "id": "AUD-94F76D5D",
+      "actor": "Demo BU SPOC",
+      "actorId": "u-spoc",
+      "action": "DRAFT_SECTION_SAVED",
+      "entityType": "PricingCase",
+      "entityId": "PT-28EB80B9",
+      "details": {
+        "section": "resource-estimates",
+        "revision": 2
+      },
+      "createdAt": "2026-10-13T05:07:25.226Z"
+    },
+    {
+      "id": "AUD-CD467B23",
+      "actor": "Demo BU SPOC",
+      "actorId": "u-spoc",
+      "action": "COMMENT_ADDED",
+      "entityType": "PricingCase",
+      "entityId": "PT-28EB80B9",
+      "details": {
+        "commentId": "C-18F641A0"
+      },
+      "createdAt": "2026-10-13T05:07:09.799Z"
+    },
+    {
+      "id": "AUD-56068019",
+      "actor": "Demo BU SPOC",
+      "actorId": "u-spoc",
+      "action": "DRAFT_SECTION_SAVED",
+      "entityType": "PricingCase",
+      "entityId": "PT-28EB80B9",
+      "details": {
+        "section": "resource-estimates",
+        "revision": 2
+      },
+      "createdAt": "2026-10-13T05:06:43.535Z"
+    },
+    {
+      "id": "AUD-B082FAE5",
+      "actor": "Demo Client Partner",
+      "actorId": "u-cp",
+      "action": "WORKFLOW_STAGE_CHANGED",
+      "entityType": "PricingCase",
+      "entityId": "PT-28EB80B9",
+      "details": {
+        "stage": "Recognition of Need",
+        "reason": "Customer requirements confirmed"
+      },
+      "createdAt": "2026-10-13T05:02:51.339Z"
+    },
+    {
+      "id": "AUD-2FD122D0",
+      "actor": "Demo Client Partner",
+      "actorId": "u-cp",
+      "action": "PRICING_CASE_CREATED",
+      "entityType": "PricingCase",
+      "entityId": "PT-28EB80B9",
+      "details": {
+        "opportunityId": "SF-ML-DEMO-002",
+        "source": "Manual sample provider"
+      },
+      "createdAt": "2026-10-13T05:01:43.975Z"
+    },
+    {
+      "id": "AUD-B78F23BE",
+      "actor": "Demo Finance Reviewer",
+      "actorId": "u-fin",
+      "action": "VERSION_APPROVE_STEP_2",
+      "entityType": "PricingVersion",
+      "entityId": "VER-8BFE66A2",
+      "details": {
+        "caseId": "PT-1001",
+        "taskRole": "Finance",
+        "reason": "It is approved"
+      },
+      "createdAt": "2026-10-13T03:24:12.234Z"
+    },
+    {
+      "id": "AUD-7BE631FE",
+      "actor": "Demo BU Head",
+      "actorId": "u-bu",
+      "action": "VERSION_APPROVE_STEP_1",
+      "entityType": "PricingVersion",
+      "entityId": "VER-8BFE66A2",
+      "details": {
+        "caseId": "PT-1001",
+        "taskRole": "BU Head",
+        "reason": "It is approved"
+      },
+      "createdAt": "2026-10-13T03:23:42.414Z"
+    },
+    {
+      "id": "AUD-361FF287",
+      "actor": "Demo BU SPOC",
+      "actorId": "u-spoc",
+      "action": "CALCULATION_SAVED",
+      "entityType": "PricingCase",
+      "entityId": "PT-1001",
+      "details": {
+        "calculationId": "CALC-021A3974",
+        "revision": 3
+      },
+      "createdAt": "2026-10-12T14:46:17.316Z"
+    },
+    {
+      "id": "AUD-AA501C02",
+      "actor": "Demo BU SPOC",
+      "actorId": "u-spoc",
+      "action": "DRAFT_SECTION_SAVED",
+      "entityType": "PricingCase",
+      "entityId": "PT-1001",
+      "details": {
+        "section": "resource-estimates",
+        "revision": 3
+      },
+      "createdAt": "2026-10-12T14:46:17.287Z"
+    },
+    {
+      "id": "AUD-5C0C6C37",
+      "actor": "Demo BU SPOC",
+      "actorId": "u-spoc",
+      "action": "DRAFT_SECTION_SAVED",
+      "entityType": "PricingCase",
+      "entityId": "PT-1001",
+      "details": {
+        "section": "resource-estimates",
+        "revision": 3
+      },
+      "createdAt": "2026-10-12T14:45:40.838Z"
+    },
+    {
+      "id": "AUD-699EA5A8",
+      "actor": "Demo BU SPOC",
+      "actorId": "u-spoc",
+      "action": "DRAFT_SECTION_SAVED",
+      "entityType": "PricingCase",
+      "entityId": "PT-1001",
+      "details": {
+        "section": "resource-estimates",
+        "revision": 3
+      },
+      "createdAt": "2026-10-12T14:45:33.608Z"
+    },
+    {
+      "id": "AUD-75012EDE",
+      "actor": "Demo Client Partner",
+      "actorId": "u-cp",
+      "action": "COMMENT_ADDED",
+      "entityType": "PricingCase",
+      "entityId": "PT-1001",
+      "details": {
+        "commentId": "C-A263DF7D"
+      },
+      "createdAt": "2026-10-12T14:38:51.511Z"
+    },
+    {
+      "id": "AUD-4AB7DE9A",
+      "actor": "Demo Administrator",
+      "actorId": "u-admin",
+      "action": "PRICING_VERSION_SUBMITTED",
+      "entityType": "PricingVersion",
+      "entityId": "VER-8BFE66A2",
+      "details": {
+        "caseId": "PT-1001",
+        "number": 2
+      },
+      "createdAt": "2026-10-12T14:24:30.451Z"
+    },
+    {
+      "id": "AUD-93C3F693",
+      "actor": "Demo Administrator",
+      "actorId": "u-admin",
+      "action": "PRICING_VERSION_CREATED",
+      "entityType": "PricingVersion",
+      "entityId": "VER-8BFE66A2",
+      "details": {
+        "caseId": "PT-1001",
+        "number": 2,
+        "calculationId": "CALC-FB2B0B6E"
+      },
+      "createdAt": "2026-10-12T14:23:42.956Z"
+    },
+    {
+      "id": "AUD-181C2E34",
+      "actor": "Demo Administrator",
+      "actorId": "u-admin",
+      "action": "CALCULATION_SAVED",
+      "entityType": "PricingCase",
+      "entityId": "PT-1001",
+      "details": {
+        "calculationId": "CALC-FB2B0B6E",
+        "revision": 2
+      },
+      "createdAt": "2026-10-12T14:23:21.048Z"
+    },
+    {
+      "id": "AUD-0CCA8486",
+      "actor": "Demo Administrator",
+      "actorId": "u-admin",
+      "action": "DRAFT_SECTION_SAVED",
+      "entityType": "PricingCase",
+      "entityId": "PT-1001",
+      "details": {
+        "section": "resource-estimates",
+        "revision": 2
+      },
+      "createdAt": "2026-10-12T14:23:21.024Z"
+    },
+    {
+      "id": "AUD-4D9C1704",
+      "actor": "Demo Administrator",
+      "actorId": "u-admin",
+      "action": "NEGOTIATION_RECORDED",
+      "entityType": "PricingCase",
+      "entityId": "PT-1001",
+      "details": {
+        "negotiationId": "NEG-F65EF8B5",
+        "versionId": "VER-BE7B6157"
+      },
+      "createdAt": "2026-10-12T14:23:09.935Z"
+    },
+    {
+      "id": "AUD-3206D1A4",
+      "actor": "Demo Administrator",
+      "actorId": "u-admin",
+      "action": "PRICING_VERSION_CREATED",
+      "entityType": "PricingVersion",
+      "entityId": "VER-BE7B6157",
+      "details": {
+        "caseId": "PT-1001",
+        "number": 1,
+        "calculationId": "CALC-2542CC41"
+      },
+      "createdAt": "2026-10-12T14:21:43.981Z"
+    },
+    {
+      "id": "AUD-57569F07",
+      "actor": "Demo Administrator",
+      "actorId": "u-admin",
+      "action": "CALCULATION_SAVED",
+      "entityType": "PricingCase",
+      "entityId": "PT-1001",
+      "details": {
+        "calculationId": "CALC-2542CC41",
+        "revision": 1
+      },
+      "createdAt": "2026-10-12T14:21:28.757Z"
+    },
+    {
+      "id": "AUD-2CC3C808",
+      "actor": "Demo Administrator",
+      "actorId": "u-admin",
+      "action": "DRAFT_SECTION_SAVED",
+      "entityType": "PricingCase",
+      "entityId": "PT-1001",
+      "details": {
+        "section": "resource-estimates",
+        "revision": 1
+      },
+      "createdAt": "2026-10-12T14:21:28.732Z"
+    },
+    {
+      "id": "AUD-C8CFEC1C",
+      "actor": "Demo Administrator",
+      "actorId": "u-admin",
+      "action": "DRAFT_SECTION_SAVED",
+      "entityType": "PricingCase",
+      "entityId": "PT-1001",
+      "details": {
+        "section": "resource-estimates",
+        "revision": 1
+      },
+      "createdAt": "2026-10-12T14:21:21.692Z"
+    },
+    {
+      "id": "AUD-B2562850",
+      "actor": "Demo Administrator",
+      "actorId": "u-admin",
+      "action": "DRAFT_SECTION_SAVED",
+      "entityType": "PricingCase",
+      "entityId": "PT-1001",
+      "details": {
+        "section": "resource-estimates",
+        "revision": 1
+      },
+      "createdAt": "2026-10-12T14:17:35.005Z"
+    },
+    {
+      "id": "AUD-7ED45AFE",
+      "actor": "Demo Administrator",
+      "actorId": "u-admin",
+      "action": "DRAFT_SECTION_SAVED",
+      "entityType": "PricingCase",
+      "entityId": "PT-1001",
+      "details": {
+        "section": "resource-estimates",
+        "revision": 1
+      },
+      "createdAt": "2026-10-12T14:17:32.219Z"
+    },
+    {
+      "id": "AUD-7CAD9FDC",
+      "actor": "Demo Administrator",
+      "actorId": "u-admin",
+      "action": "DRAFT_SECTION_SAVED",
+      "entityType": "PricingCase",
+      "entityId": "PT-1001",
+      "details": {
+        "section": "resource-estimates",
+        "revision": 1
+      },
+      "createdAt": "2026-10-12T14:17:11.820Z"
+    },
+    {
+      "id": "AUD-73CBF898",
+      "actor": "Demo Administrator",
+      "actorId": "u-admin",
+      "action": "DRAFT_SECTION_SAVED",
+      "entityType": "PricingCase",
+      "entityId": "PT-1001",
+      "details": {
+        "section": "resource-estimates",
+        "revision": 1
+      },
+      "createdAt": "2026-10-12T14:17:08.760Z"
+    },
+    {
+      "id": "AUD-BE5036E2",
+      "actor": "Demo Administrator",
+      "actorId": "u-admin",
+      "action": "CALCULATION_SAVED",
+      "entityType": "PricingCase",
+      "entityId": "PT-1001",
+      "details": {
+        "calculationId": "CALC-299CA168",
+        "revision": 1
+      },
+      "createdAt": "2026-10-12T14:17:07.652Z"
+    },
+    {
+      "id": "AUD-EC599183",
+      "actor": "Demo Administrator",
+      "actorId": "u-admin",
+      "action": "DRAFT_SECTION_SAVED",
+      "entityType": "PricingCase",
+      "entityId": "PT-1001",
+      "details": {
+        "section": "resource-estimates",
+        "revision": 1
+      },
+      "createdAt": "2026-10-12T14:17:07.617Z"
+    },
+    {
+      "id": "AUD-BDE1A385",
+      "actor": "Demo Administrator",
+      "actorId": "u-admin",
+      "action": "VERSION_APPROVE_STEP_2",
+      "entityType": "PricingVersion",
+      "entityId": "VER-2002",
+      "details": {
+        "caseId": "PT-1002",
+        "taskRole": "Finance",
+        "reason": "Approved"
+      },
+      "createdAt": "2026-10-12T14:16:33.769Z"
+    },
+    {
+      "id": "AUD-A31C060E",
+      "actor": "Demo Administrator",
+      "actorId": "u-admin",
+      "action": "CONFIG_UPDATED",
+      "entityType": "Configuration",
+      "entityId": "pricing-config",
+      "details": {
+        "targetMarginPct": 40,
+        "fallbackAllowed": true,
+        "retryLimit": 3,
+        "slaHours": 24,
+        "formulaApproved": false
+      },
+      "createdAt": "2026-10-12T14:15:55.509Z"
+    },
+    {
+      "id": "AUD-A130A39F",
+      "actor": "Demo Administrator",
+      "actorId": "u-admin",
+      "action": "VERSION_APPROVE_STEP_1",
+      "entityType": "PricingVersion",
+      "entityId": "VER-2002",
+      "details": {
+        "caseId": "PT-1002",
+        "taskRole": "BU Head",
+        "reason": ""
+      },
+      "createdAt": "2026-10-12T10:42:36.900Z"
+    }
+  ],
+  "notifications": [],
+  "pendingDecisions": [
+    {
+      "id": "DEC-01",
+      "priority": "P1",
+      "decision": "Project Track API, authentication, handoff trigger and acknowledgement",
+      "owner": "Project Track / Architecture",
+      "status": "Pending",
+      "decisionValue": "",
+      "date": "",
+      "impact": "Must be confirmed before production use."
+    },
+    {
+      "id": "DEC-02",
+      "priority": "P1",
+      "decision": "Framework and deployment environment",
+      "owner": "Architecture / Platform",
+      "status": "Pending",
+      "decisionValue": "",
+      "date": "",
+      "impact": "Must be confirmed before production use."
+    },
+    {
+      "id": "DEC-03",
+      "priority": "P1",
+      "decision": "SQL Server schema ownership and migration strategy",
+      "owner": "Data Platform",
+      "status": "Pending",
+      "decisionValue": "",
+      "date": "",
+      "impact": "Must be confirmed before production use."
+    },
+    {
+      "id": "DEC-04",
+      "priority": "P1",
+      "decision": "Finance-approved CM formula, eligible cost, rounding and target-gap formula",
+      "owner": "Finance",
+      "status": "Pending",
+      "decisionValue": "",
+      "date": "",
+      "impact": "Must be confirmed before production use."
+    },
+    {
+      "id": "DEC-05",
+      "priority": "P1",
+      "decision": "Approval thresholds and configuration publishing authority",
+      "owner": "Finance Leadership",
+      "status": "Pending",
+      "decisionValue": "",
+      "date": "",
+      "impact": "Must be confirmed before production use."
+    },
+    {
+      "id": "DEC-06",
+      "priority": "P1",
+      "decision": "CFO vs EVP Finance authority and special-exception definition",
+      "owner": "Finance Leadership",
+      "status": "Pending",
+      "decisionValue": "",
+      "date": "",
+      "impact": "Must be confirmed before production use."
+    },
+    {
+      "id": "DEC-07",
+      "priority": "P1",
+      "decision": "Authoritative rate source and fallback policy",
+      "owner": "Finance",
+      "status": "Pending",
+      "decisionValue": "",
+      "date": "",
+      "impact": "Must be confirmed before production use."
+    },
+    {
+      "id": "DEC-08",
+      "priority": "P1",
+      "decision": "HR/MNH cost source and cost model",
+      "owner": "HR / Finance",
+      "status": "Pending",
+      "decisionValue": "",
+      "date": "",
+      "impact": "Must be confirmed before production use."
+    },
+    {
+      "id": "DEC-09",
+      "priority": "P1",
+      "decision": "Identity and BU/account/project/SPOC mappings",
+      "owner": "Identity / Operations",
+      "status": "Pending",
+      "decisionValue": "",
+      "date": "",
+      "impact": "Must be confirmed before production use."
+    },
+    {
+      "id": "DEC-10",
+      "priority": "P1",
+      "decision": "BU Head visibility scope",
+      "owner": "Business / Security",
+      "status": "Pending",
+      "decisionValue": "",
+      "date": "",
+      "impact": "Must be confirmed before production use."
+    },
+    {
+      "id": "DEC-11",
+      "priority": "P1",
+      "decision": "Resource quantity, billing period, currency and utilization rules",
+      "owner": "Finance / Delivery",
+      "status": "Pending",
+      "decisionValue": "",
+      "date": "",
+      "impact": "Must be confirmed before production use."
+    },
+    {
+      "id": "DEC-12",
+      "priority": "P1",
+      "decision": "Salesforce field mapping and reapproval triggers",
+      "owner": "Salesforce / Sales",
+      "status": "Pending",
+      "decisionValue": "",
+      "date": "",
+      "impact": "Must be confirmed before production use."
+    },
+    {
+      "id": "DEC-13",
+      "priority": "P2",
+      "decision": "FX source and update frequency",
+      "owner": "Finance",
+      "status": "Pending",
+      "decisionValue": "",
+      "date": "",
+      "impact": "Must be confirmed before production use."
+    },
+    {
+      "id": "DEC-14",
+      "priority": "P2",
+      "decision": "Famstack/SOW utilization interface",
+      "owner": "Delivery Operations",
+      "status": "Pending",
+      "decisionValue": "",
+      "date": "",
+      "impact": "Must be confirmed before production use."
+    },
+    {
+      "id": "DEC-15",
+      "priority": "P2",
+      "decision": "Retention and deletion policy",
+      "owner": "Security / Legal",
+      "status": "Pending",
+      "decisionValue": "",
+      "date": "",
+      "impact": "Must be confirmed before production use."
+    },
+    {
+      "id": "DEC-16",
+      "priority": "P2",
+      "decision": "Project Track handoff trigger: approved/agreed vs Closed Won",
+      "owner": "Project Track / Sales",
+      "status": "Pending",
+      "decisionValue": "",
+      "date": "",
+      "impact": "Must be confirmed before production use."
+    }
+  ],
+  "integrationEvents": [],
+  "config": {
+    "demoMode": true,
+    "fallbackAllowed": true,
+    "targetMarginPct": 40,
+    "formulaApproved": false,
+    "fxRate": 1,
+    "fxCurrency": "USD",
+    "slaHours": 24,
+    "retryLimit": 3
+  }
+}

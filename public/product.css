@@ -1,0 +1,36 @@
+[hidden]{display:none!important}
+body{font-family:"Segoe UI",Arial,sans-serif;font-size:14px}
+.login-screen{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;background:#faf8ff}
+.login-brand{background:radial-gradient(circle at 20% 10%,#7451bb,#24113f 70%);color:white;padding:clamp(40px,8vw,130px);display:flex;flex-direction:column;justify-content:center}
+.login-brand .brand-mark{width:64px;height:64px;font-size:34px;margin-bottom:30px}
+.login-brand h1{font-size:48px;letter-spacing:-2px;margin:0 0 18px}
+.login-brand p{color:#dacdf3;font-size:19px;line-height:1.7;max-width:400px}
+.login-steps{display:flex;gap:18px;margin-top:45px;font-size:12px;color:#e4d7ff;flex-wrap:wrap}
+.login-card{width:min(440px,85%);align-self:center;justify-self:center;padding:30px 0}
+.login-card h2{font-size:29px;letter-spacing:-1px;margin:14px 0}
+.login-card>p{color:var(--muted);line-height:1.7;margin-bottom:28px}
+.login-card .field{margin:18px 0}.login-card .field input{height:48px;font-size:15px;width:100%;border:1px solid #dbd4e8;border-radius:9px;padding:12px;background:white}
+.login-card .field label{display:block;margin-bottom:8px;font-weight:600}
+.login-card .btn{width:100%;height:48px;font-size:15px}.login-error{color:#ab2748!important;min-height:22px;margin:6px 0!important}
+.identity-picker strong{font-size:12px;color:var(--ink)}
+.workspace-layout.combined{grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);align-items:start;gap:22px}
+.resource-panel .card-head p{font-size:12px;line-height:1.6}.resource-toolbar{display:flex;flex-wrap:wrap;gap:9px;align-items:center;margin-bottom:16px}
+.resource-toolbar label{font-size:12px;margin-left:auto}
+.resource-detail{border:1px solid #e3dcec;border-radius:12px;margin:14px 0;padding:0;background:white;overflow:hidden}
+.resource-detail summary{padding:18px;background:#faf8ff;font-size:13px;line-height:1.6}
+.resource-detail summary .subtext{display:block;font-size:12px;font-weight:400;margin-top:5px}
+.resource-detail fieldset,fieldset{border:1px solid var(--line);border-radius:9px;margin:16px;padding:14px;min-width:0}
+fieldset legend{font-size:12px;font-weight:700;color:#60438a;padding:0 7px}
+.resource-fields,.standalone .resource-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 14px;margin:0}
+.resource-fields .wide{grid-column:1/-1}.resource-fields .field{min-width:0;margin:0}.resource-fields label{font-size:12px}.resource-fields input,.resource-fields select{width:100%;font-size:13px;min-height:40px}
+.resource-footer{padding:0 16px 16px;display:flex;justify-content:flex-end}
+.resource-detail>.warning-box{margin:16px}.formula-summary{background:#f8f5ff;border:1px solid #e6def4;border-radius:10px;padding:17px;margin-bottom:20px;line-height:1.7;font-size:12px}
+.formula-summary .grid-3 small,.formula-summary .grid-3 strong{display:block}.formula-summary .grid-3 small{color:var(--muted)}
+.card-head h3{font-size:15px}.card-body .metric-line{font-size:12px}.section-note{line-height:1.7}.empty p{line-height:1.7}
+button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid #a686dd;outline-offset:3px}
+button:disabled{opacity:.6;cursor:wait}
+.case-strip{display:flex;justify-content:space-between;gap:15px;align-items:center;padding:15px 18px;background:white;border:1px solid var(--line);border-radius:11px}.case-strip strong,.case-strip span{display:block}.case-strip span{font-size:12px;color:var(--muted);margin-top:5px}.case-strip .actions span{display:inline-flex;margin:0}
+.flow-strip{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:17px 2px;font-size:12px;color:var(--muted)}.flow-strip span{display:flex;align-items:center;gap:8px}.flow-strip i{font-style:normal;border:1px solid #dbd3e9;border-radius:50%;height:25px;width:25px;display:grid;place-items:center;font-size:11px}.flow-strip .complete{color:#236c50}.flow-strip .complete i{background:#e7f7ef;border-color:#b5dfc8}
+.compact-metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:20px}.compact-metrics>div{padding:15px 18px;background:#fff;border:1px solid var(--line);border-radius:10px}.compact-metrics label{display:block;font-size:11px;color:var(--muted);margin-bottom:7px}.compact-metrics strong{font-size:21px;letter-spacing:-.4px}.source-context{margin-top:20px}.source-context>summary{padding:15px;cursor:pointer;font-size:12px;color:#664e8c;background:#f3eefb;border-radius:8px;margin-bottom:12px}
+@media(max-width:1200px){.workspace-layout.combined{grid-template-columns:1fr}.top-actions{flex-wrap:wrap;justify-content:flex-end}.topbar{height:auto;min-height:90px;gap:16px}}
+@media(max-width:700px){.login-screen{grid-template-columns:1fr}.login-brand{padding:30px}.login-brand h1{font-size:32px}.login-brand p,.login-steps{display:none}.login-brand .brand-mark{margin-bottom:14px}.login-card{padding:30px 0}.resource-fields,.standalone .resource-fields{grid-template-columns:1fr}.resource-toolbar label{margin-left:0}.resource-detail fieldset{margin:10px}.top-actions .identity-picker{display:none}}

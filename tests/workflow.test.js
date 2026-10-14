@@ -1,0 +1,108 @@
+'use strict';
+const test=require('node:test');
+const assert=require('node:assert/strict');
+const fs=require('node:fs');
+const path=require('node:path');
+const {once}=require('node:events');
+const {loadStore}=require('../src/store');
+
+test('HTTP sample journey: provider data, negotiations, returned/rejected versions, approval, launch and Closed Won persist',async()=>{
+ const folder=fs.mkdtempSync(path.join(__dirname,'.workflow-'));
+ const file=path.join(folder,'store.json');process.env.DATA_FILE=file;process.env.PORT='0';
+ process.env.NODE_ENV='test';process.env.AUTH_TEST_FIXTURES='true';const {server,ready}=require('../src/server');await ready;
+ try{
+  if(!server.listening)await once(server,'listening');
+  const base='http://127.0.0.1:'+server.address().port;
+  async function call(route,body,user='u-admin',method='POST',expected=200){
+   if(/\/cases\/[^/]+\/versions$/.test(route)&&method==='POST'&&expected===200)await call(route.replace('/versions','/resource-validation'),{revision:body.revision,reason:'BU SPOC verifies resource estimates'},'u-spoc');
+   const res=await fetch(base+'/api/v1'+route,{method,headers:{'Content-Type':'application/json','X-Demo-User':user},body:method==='GET'?undefined:JSON.stringify(body||{})});
+   const out=await res.json();assert.equal(res.status,expected,JSON.stringify(out));return out;
+  }
+  const details={opportunityId:'SAMPLE-TEST-001',opportunityName:'Northstar analytics expansion',account:'Northstar Retail',bu:'R&M',owner:'Demo Client Partner',opportunityType:'Renewal',region:'India',capability:'Data engineering',deliveryModel:'Offshore',scope:'Analytics platform delivery',startDate:'2026-11-01',contractEndDate:'2027-04-30',durationMonths:6,currency:'USD',budget:100000,targetMarginPct:40,discountPct:10,colaPct:5,priorScope:'One engineering pod',extraResourceNotes:'One additional engineer; review manual utilization'};
+  const created=await call('/salesforce/pricing-requests',details,'u-cp','POST',201);const id=created.case.id;
+  await call('/pricing-requests',{...details,opportunityId:'BAD',durationMonths:-2},'u-admin','POST',403);
+  await call('/salesforce/pricing-requests',{...details,opportunityId:'PRIVATE',account:'Other'},'u-cp','POST',403);
+  const seed=await call('/bootstrap',null,'u-admin','GET');
+  assert.equal(seed.calculations['PT-1001'].exceptions.length,0,'seeded Northstar scenario is fully calculable');
+  const buSeed=await call('/bootstrap',null,'u-bu','GET');assert.ok(buSeed.cases.some(c=>c.id==='PT-1001'));
+  const validated=(await call('/cases/PT-1001',null,'u-spoc','GET')).case;
+  const incompleteValidation=await call('/cases/PT-1001/validate-submission',{},'u-spoc');
+  assert.equal(incompleteValidation.demoSubmissionAllowed,false);
+  assert.ok(incompleteValidation.blockers.some(message=>message.includes('Save Calculation')));
+  assert.ok(incompleteValidation.blockers.some(message=>message.includes('BU SPOC has not validated')));
+  await call('/cases/PT-1001/resource-validation',{revision:validated.revision,reason:'BU SPOC validated the current resource estimate'},'u-spoc');
+  await call('/cases/PT-1001/calculations',{},'u-sales');
+  const readyValidation=await call('/cases/PT-1001/validate-submission',{},'u-spoc');
+  assert.equal(readyValidation.valid,true);assert.equal(readyValidation.demoSubmissionAllowed,true);
+  assert.equal(readyValidation.productionReady,false);
+  assert.ok(readyValidation.productionBlockers.some(message=>message.includes('Finance rule approval is pending')));
+  assert.deepEqual(readyValidation.blockers,[]);
+  const analystSubmission=await fetch(base+'/api/v1/cases/PT-1001/versions?user=u-sales',{method:'POST',headers:{'Content-Type':'application/json','X-Demo-User':'u-sales'},body:JSON.stringify({comment:'Submit the SPOC-validated draft',revision:validated.revision})});
+  assert.equal(analystSubmission.status,200,await analystSubmission.text());
+  const draft=seed.cases.find(c=>c.id==='PT-1001');const oldCost=draft.lines[0].costPerHour;draft.lines[0].costPerHour=oldCost+1;
+  await call('/cases/PT-1001/draft/sections/resource-estimates',{revision:draft.revision,lines:draft.lines},'u-spoc','PUT');
+  const costCase=(await call('/cases/PT-1001',null,'u-spoc','GET')).case;assert.equal(costCase.costHistory[0].previousCost,oldCost);assert.equal(costCase.costHistory[0].costPerHour,oldCost+1);
+  assert.equal((await call('/cases/PT-1001',null,'u-sales','GET')).case.costHistory,undefined);
+
+  assert.equal((await fetch(base+'/')).status,200);assert.equal((await fetch(base+'/app.js')).status,200);
+  let c=(await call('/cases/'+id,null,'u-admin','GET')).case;
+  for(const stage of ['Recognition of Need','Evaluation of Options','Resolution of Concerns','Proposal'])await call('/cases/'+id+'/workflow',{stage,reason:'Sample discovery completed'},'u-sales');
+  // Manual providers add a rate, then a different identity approves it.
+  await call('/rates/proposals',{account:'Northstar Retail',bu:'R&M',workType:'T&M',role:'Invalid rate',grade:'G3',location:'India',currency:'USD',amount:-1,startDate:'2026-02-30'},'u-admin','POST',400);
+  const proposal=await call('/rates/proposals',{account:'Northstar Retail',bu:'R&M',workType:'T&M',role:'POC Analyst',grade:'G3',location:'India',currency:'USD',amount:50,startDate:'2020-01-01',endDate:'2035-12-31'},'u-admin','POST',201);
+  await call('/rates/'+proposal.proposal.id+'/approve',{},'u-admin','POST',403);
+  await call('/rates/'+proposal.proposal.id+'/approve',{note:'Sample Finance review'},'u-fin');
+  const line={id:'TEST-LINE',bu:'R&M',workType:'T&M',role:'POC Analyst',grade:'G3',location:'India',classification:'Offshore',quantity:2,hoursPerPeriod:100,periods:6,utilizationPct:80,costPerHour:20,currency:'USD',startDate:'2026-11-01',endDate:'2027-04-30',availability:'Two sample analysts available'};
+  await call('/cases/'+id+'/draft/sections/resource-estimates',{revision:c.revision,lines:[line]},'u-admin','PUT');
+  let calculated=(await call('/cases/'+id,null,'u-admin','GET')).calculation;
+  assert.equal(calculated.totalCost,24000);assert.equal(calculated.preColaRevenue,48000);assert.equal(calculated.baseRevenue,50400);assert.equal(calculated.totalRevenue,45360);
+  await call('/cases/'+id+'/workflow',{stage:'Closed Won',reason:'Trying to skip approval'},'u-sales','POST',409);
+  await call('/cases/'+id+'/versions',{comment:'Missing saved calculation',revision:(await call('/cases/'+id,null,'u-sales','GET')).case.revision},'u-sales','POST',409);
+  await call('/cases/'+id+'/calculations',{},'u-sales');
+  const revisionBefore=(await call('/cases/'+id,null,'u-admin','GET')).case.revision;
+  await call('/cases/'+id+'/draft/sections/resource-estimates',{revision:revisionBefore,lines:[{...line,costPerHour:1}]},'u-sales','PUT');
+  assert.equal((await call('/cases/'+id,null,'u-admin','GET')).calculation.totalCost,24000,'restricted users cannot overwrite costs');
+  const v1=(await call('/cases/'+id+'/versions',{comment:'Initial 10% discounted renewal',revision:(await call('/cases/'+id,null,'u-sales','GET')).case.revision},'u-sales')).version;
+  assert.equal(v1.status,'Pending Approval');assert.equal(v1.calculation.totalCost,undefined,'restricted version response hides costs');assert.equal(v1.snapshot[0].costPerHour,undefined);
+  await call('/cases/'+id+'/versions',{comment:'Accidental repeated create',revision:(await call('/cases/'+id,null,'u-sales','GET')).case.revision},'u-sales','POST',409);
+  await call('/versions/'+v1.id+'/approval-tasks/2/approve',{},'u-fin','POST',409);
+  await call('/versions/'+v1.id+'/approval-tasks/1/approve',{},'u-cp','POST',403);
+  await call('/versions/'+v1.id+'/approval-tasks/1/send-back',{reason:'Record requested and offered price'},'u-bu');
+  await call('/versions/'+v1.id+'/approval-tasks/2/approve',{},'u-fin','POST',409);
+  await call('/cases/'+id+'/restore-to-draft',{versionId:v1.id,reason:'Address returned feedback'},'u-sales');
+  await call('/cases/'+id+'/negotiations',{discussionDate:'not-a-date',requestedPrice:-1,offeredPrice:0,notes:'Invalid',outcome:'No',nextAction:'Fix'},'u-sales','POST',400);
+  const n1=(await call('/cases/'+id+'/negotiations',{discussionDate:'2026-10-12',requestedPrice:40000,offeredPrice:44000,notes:'Client requests revised scope pricing',outcome:'Counteroffer',nextAction:'Create revised pricing version',versionId:v1.id},'u-sales')).negotiation;
+  await call('/cases/'+id+'/calculations',{},'u-sales');
+  const v2=(await call('/cases/'+id+'/versions',{comment:'V2 client counteroffer',revision:(await call('/cases/'+id,null,'u-sales','GET')).case.revision},'u-sales')).version;
+  assert.equal(v2.calculation.totalRevenue,44000);assert.equal(v2.negotiationId,n1.id);
+  await call('/versions/'+v2.id+'/approval-tasks/1/approve',{reason:'Scope validated'},'u-bu');
+  await call('/versions/'+v2.id+'/approval-tasks/2/reject',{reason:'Increase offer to preserve margin'},'u-fin');
+  await call('/cases/'+id+'/restore-to-draft',{versionId:v2.id,reason:'Finance rework'},'u-sales');
+  await call('/cases/'+id+'/negotiations',{discussionDate:'2026-10-12',requestedPrice:44000,offeredPrice:46000,notes:'Client agrees revised commercial proposal',outcome:'Offer ready',nextAction:'Submit V3',versionId:v2.id},'u-sales');
+  await call('/cases/'+id+'/calculations',{},'u-sales');
+  const v3=(await call('/cases/'+id+'/versions',{comment:'V3 final revised offer',revision:(await call('/cases/'+id,null,'u-sales','GET')).case.revision},'u-sales')).version;
+  await call('/cases/'+id+'/mark-agreed',{versionId:v3.id,evidence:'Client accepts'},'u-sales','POST',409);
+  await call('/versions/'+v3.id+'/approval-tasks/1/approve',{reason:'Delivery scope approved'},'u-bu');
+  await call('/versions/'+v3.id+'/approval-tasks/2/approve',{reason:'Finance approves demo offer'},'u-fin');
+  const financeHistory=(await call('/bootstrap',null,'u-fin','GET')).cases.find(c=>c.id===id).versions.find(v=>v.id===v3.id);assert.equal(financeHistory.status,'Approved');assert.equal(financeHistory.approvals[1].actor,'Demo Finance Reviewer');assert.equal(financeHistory.approvals[1].reason,'Finance approves demo offer');assert.ok(financeHistory.approvals[1].at);
+
+  await call('/cases/'+id+'/mark-agreed',{versionId:v3.id,evidence:''},'u-sales','POST',400);
+  await call('/cases/'+id+'/mark-agreed',{versionId:v3.id,evidence:'Sample signed commercial acceptance'},'u-sales');
+  await call('/cases/'+id+'/workflow',{stage:'Contract & Launch',reason:''},'u-sales','POST',400);
+  await call('/cases/'+id+'/workflow',{stage:'Contract & Launch',reason:'Sample contract signed; delivery kickoff completed'},'u-sales');
+  const won=(await call('/cases/'+id+'/workflow',{stage:'Closed Won',reason:'Accepted contract and launch confirmed'},'u-sales')).case;
+  assert.equal(won.status,'Closed Won');assert.equal(won.lifecycle,'Closed Won');assert.equal(won.closedWonVersionId,v3.id);assert.equal(won.finalOffer.price,46000);
+  assert.equal(won.versions.find(v=>v.id===v1.id).status,'Returned');assert.equal(won.versions.find(v=>v.id===v2.id).status,'Rejected');assert.equal(won.negotiations.length,2);assert.equal(won.calculations.length,3);
+  const compare=await call('/cases/'+id+'/versions/compare?left='+v1.id+'&right='+v3.id,null,'u-sales','GET');
+  assert.equal(compare.left.calculation.totalRevenue,45360);assert.equal(compare.right.calculation.totalRevenue,46000);assert.equal(compare.right.snapshot[0].costPerHour,undefined);
+  await call('/cases/'+id+'/details',{...details,revision:won.revision},'u-sales','PATCH',409);
+  await call('/salesforce/simulate',{caseId:id,event:'OpportunityUpdated',lifecycle:'Closed Won'},'u-admin','POST',409);
+  const persisted=loadStore(file).data.cases.find(c=>c.id===id);assert.equal(persisted.finalOffer.price,46000);assert.equal(persisted.versions.length,3);assert.equal(persisted.versions.find(v=>v.id===v1.id).calculation.totalRevenue,45360);
+  const replacement=await call('/rates/proposals',{...proposal.proposal,supersedesId:(await call('/rates',null,'u-admin','GET')).items.find(r=>r.role==='POC Analyst').id,amount:55},'u-admin','POST',201);
+  await call('/rates/'+replacement.proposal.id+'/approve',{note:'Updated editable provider rate'},'u-fin');
+  const allRates=(await call('/rates',null,'u-admin','GET')).items;
+  assert.equal(allRates.find(r=>r.id===replacement.proposal.supersedesId).status,'Superseded');assert.ok(allRates.some(r=>r.role==='POC Analyst'&&r.amount===55&&r.status==='Approved'));
+  assert.equal((await call('/cases/'+id,null,'u-admin','GET')).case.finalOffer.price,46000,'approved rate replacement does not rewrite accepted history');
+  const boot=await call('/bootstrap',null,'u-sales','GET');const visible=boot.cases.find(c=>c.id===id);assert.equal(visible.status,'Closed Won');assert.ok(!JSON.stringify(visible).includes('costPerHour'));assert.equal(boot.tasks.filter(t=>t.caseId===id).length,0);
+ }finally{await new Promise(resolve=>server.close(resolve));fs.rmSync(folder,{recursive:true,force:true});}
+});

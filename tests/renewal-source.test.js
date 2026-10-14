@@ -1,0 +1,33 @@
+'use strict';
+const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),os=require('node:os'),path=require('node:path');
+const renewal=require('../src/renewal-policy'),bu=require('../src/bu-routing');
+test('renewal reminder uses calendar months with month-end, leap-year and India timezone boundaries',()=>{
+ assert.equal(renewal.reminderDate('2027-05-31'),'2027-02-28');assert.equal(renewal.reminderDate('2024-05-31'),'2024-02-29');assert.equal(renewal.reminderDate('2027-01-15'),'2026-10-15');assert.equal(renewal.reminderDate('2026-02-30'),'');assert.equal(renewal.reminderDate(''),'');assert.equal(renewal.localDay(new Date('2026-12-31T20:00:00Z')),'2027-01-01');
+});
+test('renewal alerts work before case creation, are deduplicated and revoke access after ownership changes',()=>{
+ const data={config:{},cases:[],users:[{id:'a',source:'Salesforce workbook',loginId:'Owner A',role:'Client Partner'},{id:'b',source:'Salesforce workbook',loginId:'Owner B',role:'Client Partner'},{id:'evp',name:'Ankur Maheshwari',role:'EVP Finance'}]};const source={opportunityId:'1',owner:'Owner A',type:'Renewal',closeDate:'2027-01-15',stage:'Proposal',vertical:'RCM',amount:100,currency:'USD'};
+ renewal.sweep(data,[source],new Date('2026-10-14T00:00:00Z'));assert.equal(data.notifications.filter(n=>n.type==='renewal').length,0);
+ renewal.sweep(data,[source],new Date('2026-10-15T00:00:00Z'));const n=data.notifications.find(n=>n.type==='renewal');assert.equal(n.userId,'a');assert.equal(n.renewal.caseId,null);assert.equal(n.renewal.actualUtilizationPct,null);assert.equal(n.renewal.colaPct,5);
+ renewal.sweep(data,[source],new Date('2026-10-16T00:00:00Z'));assert.equal(data.notifications.filter(n=>n.type==='renewal').length,1);
+ source.owner='Owner B';renewal.sweep(data,[source],new Date('2026-10-16T00:00:00Z'));assert.equal(n.revoked,true);assert.equal(data.notifications.filter(n=>n.type==='renewal'&&!n.revoked)[0].userId,'b');
+ source.stage='Closed Lost';renewal.sweep(data,[source]);assert.ok(data.notifications.filter(n=>n.type==='renewal').every(n=>n.revoked));
+ const policy=data.config.colaPolicy;policy.lastReviewedYear=2026;const previous=data.notifications.length;renewal.sweep(data,[],new Date('2026-12-31T00:00:00Z'));assert.equal(data.notifications.length,previous);renewal.sweep(data,[],new Date('2026-12-31T20:00:00Z'));assert.ok(data.notifications.some(n=>n.key.startsWith('COLA_REVIEW:2027:')));
+});
+test('all 38 Salesforce columns are retained and financially different fields remain separate',async()=>{
+ const dataset=await require('../src/salesforce-opportunities').readWorkbook();assert.equal(dataset.columns.length,38);assert.equal(dataset.items.length,1057);for(const item of dataset.items)assert.deepEqual(Object.keys(item.sourceFields),dataset.columns.map(c=>c.key));
+ const item=dataset.items.find(x=>x.quarterlyAccruedValues.Q1.amount!==null);assert.equal(typeof item.amount,'number');assert.ok(item.createdDate);assert.ok(item.lastModifiedDate);assert.equal(item.sourceFields.vertical,item.vertical);assert.equal(item.sourceFields.closedate,item.closeDate instanceof Date?item.closeDate.toISOString().slice(0,10):item.sourceFields.closedate);assert.ok(dataset.columns.find(c=>c.name==='Lead Source').populatedCount===0);assert.ok(dataset.columns.find(c=>c.name==='Contact Role').populatedCount>0);
+});
+test('BU routing requires an explicit child choice and names only the matching head',()=>{
+ const data={config:{},users:[]};bu.initialize(data);assert.equal(bu.resolve({vertical:'RCM',subVertical:''},data),'');assert.equal(bu.resolve({vertical:'TMT',subVertical:''},data),'');assert.deepEqual(bu.choices('RCM',data.config),['R&M','CPG']);assert.equal(bu.head({bu:'CPG'},data).name,'Ashish gupta');assert.equal(bu.head({bu:'R&M'},data).name,'namratta pandya');assert.equal(bu.head({bu:'HLS-A'},data),undefined);
+ const policy=require('../src/policy'),c={pricingRuleSet:'WORKBOOK',buHeadUserId:bu.head({bu:'CPG'},data).id,assignedUsers:data.users.map(u=>u.id)};const task={role:'BU Head',assignedUserIds:[c.buHeadUserId]};assert.equal(policy.canApprove(bu.head({bu:'R&M'},data),c,task,{delegations:[]}),false);assert.equal(policy.canApprove(bu.head({bu:'CPG'},data),c,task,{delegations:[]}),true);assert.equal(policy.canApprove({role:'Admin',approvalOverride:true},c,task,{delegations:[]}),false);
+});
+test('renewal COLA increases overall cost only, preserves source rates and snapshots Finance policy',async()=>{
+ const {loadReference,calculateWorkbook}=require('../src/workbook-pricing'),reference=await loadReference(),c={opportunityType:'Renewal',currency:'USD',targetMarginPct:50,pricingVertical:'RCM',lines:[{id:'IP',workType:'Product',productUnitCost:100,productQuantity:1,productRevenue:200,startDate:'2026-11-01',endDate:'2026-11-30'}]},config={colaPolicy:{id:'RENEWAL-COST-COLA',pct:5,revision:1,lastReviewedYear:2026}};
+ const first=calculateWorkbook(c,reference,config);assert.equal(first.preColaCost,100);assert.equal(first.colaCost,5);assert.equal(first.totalCost,105);assert.equal(first.totalRevenue,200);assert.equal(first.contributionMarginPct,47.5);assert.equal(first.targetRevenue,210);assert.equal(first.ruleReference.colaPolicy.pct,5);assert.deepEqual(first.exceptions,[]);
+ config.colaPolicy.pct=7;const next=calculateWorkbook({...c,colaPct:5},reference,config);assert.equal(next.totalCost,107);assert.equal(next.totalRevenue,200);assert.equal(first.ruleReference.colaPolicy.pct,5);assert.equal(first.totalCost,105);assert.equal(c.lines[0].productUnitCost,100);
+});
+test('wide intake refresh preserves approved requests and adds all source references beyond column Z',async()=>{
+ const dir=fs.mkdtempSync(path.join(os.tmpdir(),'price-intake-fields-'));try{const file=path.join(dir,'Pricing Intake.xlsx'),source=(await require('../src/salesforce-opportunities').readWorkbook()).items[0];require('../src/xlsx-template').create(file,[['Request ID','Opportunity ID','Request Pricing'],['KEEP-ID',source.opportunityId,'Yes']]);
+ const result=require('node:child_process').spawnSync(process.execPath,[path.resolve(__dirname,'../scripts/intake-template.js'),file,'--refresh'],{encoding:'utf8',windowsHide:true});assert.equal(result.status,0,result.stderr);const rows=(await require('read-excel-file/node')(file))[0].data;assert.equal(rows[0].length,47);assert.equal(rows[1][0],'KEEP-ID');assert.equal(rows[1][2],'Yes');assert.equal(rows.length,1058);assert.ok(rows[0].includes('Close Date (reference)'));assert.ok(rows[0].includes('Vertical (reference)'));assert.ok(rows[0].includes('Amount (reference)'));assert.ok(fs.readdirSync(dir).some(x=>x.includes('before-refresh')));
+ }finally{fs.rmSync(dir,{recursive:true,force:true});}
+});

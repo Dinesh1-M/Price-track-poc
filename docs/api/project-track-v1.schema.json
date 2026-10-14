@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/price-track/project-track-handoff-v1.schema.json",
+  "title": "Price Track to Project Track Commercial Handoff (POC)",
+  "description": "Illustrative POC contract only. Replace example.invalid and validate all fields with the Project Track team before production.",
+  "type": "object",
+  "required": ["schemaVersion", "opportunityId", "caseId", "versionId", "account", "currency", "workTypes", "source"],
+  "properties": {
+    "schemaVersion": { "type": "string", "const": "1.0" },
+    "opportunityId": { "type": "string", "minLength": 1 },
+    "caseId": { "type": "string", "minLength": 1 },
+    "versionId": { "type": "string", "minLength": 1 },
+    "account": { "type": "string", "minLength": 1 },
+    "currency": { "type": "string", "minLength": 3, "maxLength": 3 },
+    "workTypes": { "type": "array", "items": { "enum": ["T&M", "FTE", "Program", "Product"] }, "minItems": 1, "uniqueItems": true },
+    "commercialSnapshot": { "type": ["object", "null"], "description": "Approved immutable calculation snapshot; exact payload pending agreement." },
+    "source": { "type": "string", "const": "Price Track POC" }
+  },
+  "additionalProperties": false
+}
