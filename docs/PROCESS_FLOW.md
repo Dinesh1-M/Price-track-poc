@@ -11,7 +11,7 @@ This file describes the requested target flow and the current local implementati
 | Price Track | Pricing case, resources, rates, costs, calculations, versions, approvals, negotiation and exceptions | Never originate an opportunity; link one case to one source opportunity ID |
 | Project Track | Delivery project | Receive the approved commercial package only after eligible Closed Won; acknowledge separately |
 
-The UI no longer exposes a case-creation action; the synthetic Salesforce opportunity page is read-only and untriggered rows show **Awaiting external trigger**. Manual case creation is blocked. Normal startup uses session authentication and does not trust identity headers or user query parameters. The test-only legacy fixture adapter is enabled only by explicit test environment settings.
+The UI no longer exposes a case-creation action; the synthetic Salesforce opportunity page is read-only. Selecting an opportunity opens its source details, and untriggered rows show **No case yet** with an explanation that pricing requests enter through the external intake workflow. Manual case creation is blocked. Normal startup uses session authentication and does not trust identity headers or user query parameters. The test-only legacy fixture adapter is enabled only by explicit test environment settings.
 
 ## Approved and implemented temporary external trigger
 

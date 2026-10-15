@@ -38,13 +38,15 @@ For one opportunity without editing a worksheet:
 npm run intake -- --opportunity-id YOUR_SOURCE_OPPORTUNITY_ID --request-id YOUR_UNIQUE_REQUEST_ID
 ```
 
-The in-app Salesforce page is a read-only source queue. Client Partners see their own Opportunity Owner rows and the cases linked to those IDs. A shared account name does not grant access to another owner's rows. There is no in-app case creation action.
+The in-app Salesforce page is a read-only source queue. Select an opportunity name or reference to view its source details; linked cases can be opened from there. A row marked **No case yet** means Price Track has not received a pricing request for that opportunity, not that the opportunity failed to open. Submit requests through the external intake workflow above; there is no in-app case creation action. Client Partners see their own Opportunity Owner rows and the cases linked to those IDs. A shared account name does not grant access to another owner's rows.
 
 ## Complete the three pricing paths
 
 Source `Type` maps to `New Business → Net new`, `Existing Business → Existing new`, and `Renewal → Renewal`. Source sales stage is retained separately from the internal pricing stage. The synthetic workbook has no contractual billing-model column; T&M/FTE/Program/Product is selected on estimate lines instead of inferred from sales type.
 
-Sign in as Pricing Operations to prepare assigned cases. Open a case, enter delivery scope and pricing inputs, then select each resource's role/experience from the Margin Calculator. Enter location, people, months, hours and billability. Source role costs are fixed; there is no manual employee cost override. Save the draft and calculation. Resolve source/financial exceptions.
+Sign in as Pricing Operations to prepare assigned cases. Open a case, enter delivery scope and pricing inputs, then select each resource's role/experience from the Margin Calculator. Enter location, people, months, hours and billability. Source role costs are fixed; there is no manual employee cost override. Save the draft and calculation. Resolve source/financial exceptions. BU SPOCs see a case only after an external pricing request creates it and its source capability maps to their Tech COE; an empty case list means no matching case has been routed yet.
+
+Opening an accessible pricing case from Pricing Cases now opens the Pricing Calculator. The calculator includes the full estimate, calculation, KPI, validation, comment, and next-action components, followed by Salesforce source details at the bottom. Source details are read-only and do not contain a pricing-input edit action. Select **Working calculation** beside the case selector for a formatted explanation of the standard or workbook formulas; the guide shows calculation logic, not case cost values.
 
 Sign in as each assigned Tech COE and validate the current draft. `Data_Engg_and_BI` initially requires both Tilak Mukherjee and Vikas Yadav. Mixed capability fields can require several contacts. Editing estimates invalidates the prior revision's validation. An unmapped capability requires Administrator routing configuration; missing inputs do not silently become zero.
 

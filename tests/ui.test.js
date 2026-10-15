@@ -9,7 +9,7 @@ const {calculatePricing}=require('../src/domain');
 const publicDir=path.join(__dirname,'../public');
 function ui(role='Admin'){
  const elements=new Map();
- const element=selector=>{if(!elements.has(selector))elements.set(selector,{value:selector==='#identity'?'u-admin':'',listeners:{},addEventListener(type,handler){this.listeners[type]=handler;},classList:{toggle(){},add(){},remove(){}},textContent:'',innerHTML:''});return elements.get(selector);};
+ const element=selector=>{if(!elements.has(selector))elements.set(selector,{value:selector==='#identity'?'u-admin':'',listeners:{},addEventListener(type,handler){this.listeners[type]=handler;},classList:{toggle(){},add(){},remove(){}},showModal(){this.open=true;},close(){this.open=false;},textContent:'',innerHTML:''});return elements.get(selector);};
  const document={querySelector:element,querySelectorAll:()=>[],addEventListener(){}};
  const context=vm.createContext({document,window:{scrollTo(){}},Intl,Date,console,setTimeout,clearTimeout,structuredClone});
  const source=fs.readFileSync(path.join(publicDir,'app.js'),'utf8').split('(async()=>{const users=')[0];
@@ -20,39 +20,121 @@ function ui(role='Admin'){
  context.fixture=data;vm.runInContext('state.data=fixture;state.selectedCase=fixture.cases[0].id;',context);
  return {run:code=>vm.runInContext(code,context),elements,data,context};
 }
-test('navigation preserves the required nine pages and appends notifications',()=>{
+test('navigation hides resource editing and retains the pricing calculator for all roles',()=>{
  const html=fs.readFileSync(path.join(publicDir,'index.html'),'utf8');
  const nav=html.split('<nav id="nav">')[1].split('</nav>')[0];
  const pages=[...nav.matchAll(/data-page="([^"]+)"/g)].map(m=>m[1]);
- assert.deepEqual(pages.slice(0,9),['dashboard','cases','renewals','workspace','versions','calculator','approvals','workflow','administration']);
- assert.deepEqual(pages.slice(9),['notifications']);
+ assert.deepEqual(pages,['dashboard','cases','renewals','versions','calculator','approvals','workflow','administration','notifications']);
+ assert.doesNotMatch(nav,/data-page="workspace"/);
+ assert.match(nav,/data-page="calculator"/);
+ assert.doesNotMatch(nav,/<span/);
+ assert.match(nav,/data-page="calculator"[^>]*>Pricing Calculator<\/button>/);
  assert.doesNotMatch(nav,/Rate management|Rate Cards/);
  assert.match(html,/id="salesforce-opportunities-entry"/);
  assert.match(html,/<button class="btn secondary" id="salesforce-opportunities-entry"[^>]*>Salesforce Opportunities<\/button>/);
 });
-test('both workspace layouts use one resource draft and backend calculation',()=>{
+test('signed-in identity shows the user role rather than the Tech COE capability',()=>{
+ const u=ui('BU SPOC');u.data.user.techCoe='BI COE';u.run('setIdentity()');
+ assert.equal(u.elements.get('#signed-in-role').textContent,'BU SPOC');
+});
+test('opening an accessible pricing case routes to the calculator and leaves source details below it',async()=>{
  const u=ui();const expected=u.data.calculations[u.data.cases[0].id];
  assert.equal(u.run('calculateFor(currentCase())'),expected);
- assert.match(u.run('workspacePage()'),/workspace-layout combined/);
- assert.match(u.run('workspacePage(true)'),/workspace-layout standalone/);
- u.run('currentCase().lines[0].hoursPerPeriod=240;setPage("calculator");');
- assert.match(u.elements.get('#content').innerHTML,/value="240"/);
- u.run('setPage("workspace");');assert.equal(u.run('currentCase().lines[0].hoursPerPeriod'),240);
- for(const html of [u.run('workspacePage()'),u.run('workspacePage(true)')])assert.equal((html.match(/data-key="hoursPerPeriod"/g)||[]).length,2);
+ await u.run(`act('open-case',{dataset:{id:'${u.data.cases[0].id}'}})`);
+ assert.equal(u.run('state.page'),'calculator');
+ let html=u.elements.get('#content').innerHTML;
+ assert.match(html,/calculator-panel/);
+ assert.match(html,/workspace-layout standalone/);
+ assert.match(html,/resource-panel/);
+ assert.match(html,/data-action="add-line"/);
+ assert.match(html,/Saved pricing KPIs/);
+ assert.match(html,/Validation & rate resolution/);
+ assert.match(html,/Case comments/);
+ assert.match(html,/Next actions/);
+ assert.match(html,/data-action="recalculate"/);
+ assert.match(html,/Salesforce source details/);
+ assert.doesNotMatch(html,/Read-only opportunity snapshot|read-only snapshot/);
+ assert.doesNotMatch(html,/Salesforce source details ·|Salesforce source details.*read-only snapshot/);
+ assert.doesNotMatch(html,/Edit pricing inputs|Edit case \/ pricing/);
+ assert.ok(html.indexOf('Next actions')<html.indexOf('salesforce-source-details'));
+ assert.equal((html.match(/Salesforce source details/g)||[]).length,1);
+ await u.run('setPage("workspace")');
+ assert.equal(u.run('state.page'),'calculator');
+ html=u.elements.get('#content').innerHTML;
+ assert.match(html,/Salesforce source details/);
 });
 test('restricted roles have no cost editors or total-cost values in either calculator',()=>{
  const u=ui('Client Partner');
- for(const html of [u.run('workspacePage()'),u.run('workspacePage(true)')]){assert.doesNotMatch(html,/data-key="costPerHour"/);assert.match(html,/Restricted/);}
+ const html=u.run('workspacePage(true)');
+ assert.doesNotMatch(html,/data-key="costPerHour"/);
+ assert.match(html,/Restricted/);
+});
+test('pricing calculator info button explains calculations clearly and retains all calculator controls',async()=>{
+ const u=ui(),html=u.run('workspacePage(true)');
+ assert.match(html,/aria-label="Explain the working calculation"/);
+ assert.match(html,/Working calculation/);
+ assert.match(html,/data-action="recalculate"/);
+ await u.run(`productAction('working-calculation-info',{})`);
+ assert.equal(u.elements.get('#modal').open,true);
+ assert.match(u.elements.get('#modal-title').textContent,/How the working calculation works/);
+ const guide=u.elements.get('#modal-body').innerHTML;
+ assert.match(guide,/Scheduled hours/);
+ assert.match(guide,/Contribution margin/);
+ assert.match(guide,/<ol>/);
+ assert.match(guide,/Calculate Price/);
+ assert.match(guide,/not Finance-approved/);
+ assert.doesNotMatch(guide,/\$[0-9]/);
+ const clientPartner=ui('Client Partner');
+ assert.match(clientPartner.run('workspacePage(true)'),/aria-label="Explain the working calculation"/);
+ await clientPartner.run(`productAction('working-calculation-info',{})`);
+ assert.match(clientPartner.elements.get('#modal-body').innerHTML,/Scheduled hours/);
+ u.run(`currentCase().pricingRuleSet='WORKBOOK'`);
+ await u.run(`productAction('working-calculation-info',{})`);
+ assert.match(u.elements.get('#modal-body').innerHTML,/Bench loading/);
+ assert.match(u.elements.get('#modal-body').innerHTML,/Renewal COLA/);
+});
+test('workbook calculator keeps formula explanation in the guide instead of the crowded calculation panel',async()=>{
+ const u=ui();u.run(`currentCase().pricingRuleSet='WORKBOOK'`);
+ const html=u.run('workspacePage(true)');
+ assert.match(html,/calculator-panel/);
+ assert.match(html,/workspace-layout standalone/);
+ assert.match(html,/resource-panel/);
+ assert.match(html,/data-action="add-line"/);
+ assert.match(html,/Submission checks/);
+ assert.match(html,/Salesforce source details/);
+ assert.doesNotMatch(html,/Workbook calculation/);
+ assert.doesNotMatch(html,/formula-summary/);
+ await u.run(`productAction('working-calculation-info',{})`);
+ assert.match(u.elements.get('#modal-body').innerHTML,/Delivery cost/);
+ assert.match(u.elements.get('#modal-body').innerHTML,/Bench loading/);
+});
+test('dashboard and approval summary cards have no question-mark icons and clearer descriptions',()=>{
+ const u=ui('Sales/Pricing Analyst'),dashboard=u.run('dashboard()'),approvals=u.run('approvalsPage()');
+ assert.doesNotMatch(dashboard,/exception-icon|kpi-icon/);
+ assert.match(dashboard,/Cases waiting for reviewer action/);
+ assert.match(dashboard,/Live connection and authentication are not configured yet/);
+ assert.doesNotMatch(approvals,/kpi-icon/);
+ assert.match(approvals,/Permissions for this role/);
+ assert.match(approvals,/immutable pricing version/);
+});
+test('approval current-role tile uses a compact label and responsive styling',()=>{
+ const u=ui('Sales/Pricing Analyst'),html=u.run('approvalsPage()');
+ assert.match(html,/class="kpi-grid approval-kpis"/);
+ assert.match(html,/Current role/);
+ assert.match(fs.readFileSync(path.join(publicDir,'product.css'),'utf8'),/\.approval-kpis \.kpi:last-child \.kpi-value\{font-size:clamp/);
 });
 test('all nine pages render and legacy support links resolve to visible pages',()=>{
  const u=ui();for(const page of ['dashboard','cases','renewals','workspace','versions','calculator','approvals','workflow','administration']){u.run('setPage('+JSON.stringify(page)+')');assert.ok(u.elements.get('#content').innerHTML.length>0);}
- for(const [old,next] of [['rates','administration'],['audit','administration'],['governance','administration'],['exceptions','workflow'],['integrations','workflow']]){u.run('setPage('+JSON.stringify(old)+')');assert.equal(u.run('state.page'),next);}
+ for(const [old,next] of [['rates','administration'],['audit','administration'],['governance','administration'],['exceptions','workflow'],['integrations','workflow'],['workspace','calculator']]){u.run('setPage('+JSON.stringify(old)+')');assert.equal(u.run('state.page'),next);}
  assert.match(u.run('administrationPage()'),/data-action="new-rate"/);
  assert.match(u.run('workflowPage()'),/data-action="create-handoff"/);
 });
 test('empty accessible cases render without errors',()=>{
  const u=ui();u.run('state.data.cases=[];state.selectedCase=null;');
  for(const name of ['workspacePage','renewalsPage','versionsPage','workflowPage','approvalsPage'])assert.ok(u.run(name+'()').length>0);
+ const spoc=ui('BU SPOC');spoc.run('state.data.cases=[];state.selectedCase=null;');
+ assert.match(spoc.run('casesPage()'),/No pricing cases are assigned to this Tech COE yet/);
+ assert.match(spoc.run('casesPage()'),/external Salesforce pricing request is received/);
 });
 test('version records and approval relationships remain intact while rendering notes',()=>{
  const u=ui();const original=JSON.stringify(u.data.cases[1].versions);
@@ -85,11 +167,17 @@ test('Finance approval appears on its version timeline row even with a newer dra
 
 test('Client Partner new-case form supplies and locks the assigned customer',()=>{const u=ui('Client Partner');const html=u.run('caseForm()');assert.match(html,/Your assigned customer is Northstar Retail/);assert.match(html,/<input[^>]*name="account"[^>]*value="Northstar Retail"[^>]*readonly/);assert.match(html,/name="bu"[^>]*value="R&amp;M"/);});
 
-test('opportunity intake renders source fields, filters, and clear empty states',()=>{
+test('opportunity intake renders source fields, filters, and clear empty states',async()=>{
  const u=ui('Client Partner');
  u.run(`state.opportunities={available:true,sourceFile:'Salesforce sythetic data.xlsx',worksheet:'Sheet1',visibleCount:1,warnings:[],items:[{sourceOpportunityId:'006ABC',proposalNumber:'P-1',account:'ABC',opportunityName:'ABC Demo',stage:'Qualification',amount:50000,currency:'USD',owner:'Source Owner',fiscalPeriod:'Q1-2027',capability:'Consulting',type:'New Business'}]};`);
  const html=u.run('opportunitiesPage()');
- assert.match(html,/006ABC/);assert.match(html,/ABC Demo/);assert.match(html,/Source Owner/);assert.match(html,/aria-label="Search opportunities"/);assert.doesNotMatch(html,/data-action="select-opportunity"/);assert.match(html,/Awaiting external trigger/);
+ assert.match(html,/006ABC/);assert.match(html,/ABC Demo/);assert.match(html,/Source Owner/);assert.match(html,/aria-label="Search opportunities"/);assert.match(html,/data-action="view-opportunity"/);assert.match(html,/No case yet/);assert.doesNotMatch(html,/Awaiting external trigger/);
+ await u.run(`act('view-opportunity',{dataset:{id:'006ABC'}})`);
+ const details=u.run('opportunitiesPage()');
+ assert.match(details,/Read-only source opportunity details/);assert.match(details,/No pricing request has reached Price Track/);assert.match(details,/external Pricing Intake workflow/);
+ assert.equal(u.run('state.selectedOpportunityId'),'006ABC');
+ await u.run(`act('close-opportunity-details',{dataset:{}})`);
+ assert.equal(u.run('state.selectedOpportunityId'),null);
  const form=u.run(`caseForm({opportunityId:'006ABC',opportunityName:'ABC Demo',account:'ABC',opportunityType:'DAA',capability:'Consulting',currency:'USD',budget:50000})`);
  assert.match(form,/name="opportunityId"[^>]*value="006ABC"/);assert.match(form,/name="opportunityName"[^>]*value="ABC Demo"/);assert.match(form,/DAA .*Salesforce source/);
  u.run(`state.opportunities={available:true,items:[]};`);
